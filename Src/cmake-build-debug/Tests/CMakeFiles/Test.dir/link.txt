@@ -1,0 +1,1 @@
+/usr/bin/g++  -g   CMakeFiles/Test.dir/Initializer/Argument_Manager_Tests.cpp.o CMakeFiles/Test.dir/Test_main.cpp.o CMakeFiles/Test.dir/Initializer/Table_Files_Test.cpp.o CMakeFiles/Test.dir/Util/String_Managing_Tests.cpp.o CMakeFiles/Test.dir/Initializer/Initializer_Tests.cpp.o  -o Test ../lib/libgtestd.a ../lib/libgtest_maind.a ../lib/libgtestd.a -lpthread 

@@ -1,0 +1,1 @@
+/usr/bin/gcc -g   CMakeFiles/Di_Project.dir/main.c.o  -o Di_Project 
