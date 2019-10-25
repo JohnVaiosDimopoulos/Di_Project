@@ -1,1 +1,0 @@
-/usr/bin/gcc -g   CMakeFiles/Sort_Join.dir/main.c.o CMakeFiles/Sort_Join.dir/Initializer/Initializer.c.o CMakeFiles/Sort_Join.dir/Initializer/Argument_Manager.c.o CMakeFiles/Sort_Join.dir/Initializer/Table_Files.c.o CMakeFiles/Sort_Join.dir/Util/String_Managing.c.o  -o Sort_Join 
