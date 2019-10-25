@@ -1,5 +1,5 @@
 #include "Argument_Manager.h"
-#include "../Util/String_Managing.h"
+#include "../Util/Utilities.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -32,11 +32,11 @@ static int Go_Through_Argv_And_Get_FileNames(Arg_ManagerPtr Manager,char** File_
   for(int i=1;i<Manager->argc;i++){
     if(!strcmp(FLAG_TABLE_1,Manager->argv[i])){
       i++;
-      *File_Name_1 = Allocate_and_Copy(Manager->argv[i]);
+      *File_Name_1 = Allocate_and_Copy_Str(Manager->argv[i]);
     }
     else if(!strcmp(FLAG_TABLE_2,Manager->argv[i])){
       i++;
-      *File_Name_2=Allocate_and_Copy(Manager->argv[i]);
+      *File_Name_2= Allocate_and_Copy_Str(Manager->argv[i]);
     }
     else{
       printf("Wrong Argument Format");
