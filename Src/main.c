@@ -10,6 +10,20 @@ void fill_array(FILE *fp, uint64_t **array, int raws, int columns) {
 	fclose(fp);
 }
 
+void reverse_array(uint64_t **original, uint64_t **reversed, int raws, int columns) {
+	for(int i = 0; i < raws; i++)
+		for(int j = 0; j < columns; j++)
+			reversed[j][i] = original[i][j];
+}
+
+void sort_raw_ids(uint64_t **original, uint64_t **raw_ids, int raws, int column_of_interest) {
+	for(int i = 0; i < raws; i++) {
+		raw_ids[i][0] = i + 1;
+		raw_ids[i][1] = original[column_of_interest][i];
+	}
+}
+
+
 int main(int argc, char *argv[]) {
 /////////////////////////////////////////////////////////////////////////
 //THIS IS ALREADY IMPLEMENTED AND TESTED
@@ -30,11 +44,11 @@ int main(int argc, char *argv[]) {
 /////////////////////////////////////////////////////////////////////////////////////////
 
 
-    /*Separate Function in Utils
-     * IMPALEMENTED AND TESTED
-     * */
+	/*Separate Function in Utils
+	 * IMPALEMENTED AND TESTED
+	 * */
 	FILE *fp_A = fopen(fileName1, "r");
-
+	
 	/* Struct Data_Table
 	 * @el: num_of_elements
 	 * @el: num_of_raws
@@ -44,13 +58,12 @@ int main(int argc, char *argv[]) {
 	int elements = 0;
 	int A_raws = 0;
 	int c;
-
-
-    /*Separate function
-     * Maybe new module?
-     * TODO: IMPLEMENT AND TEST
-     *
-     * */
+	
+	/*Separate function
+	 * Maybe new module?
+	 * TODO: IMPLEMENT AND TEST
+	 *
+	 * */
 	do {
 		c = fgetc(fp_A);
 		if(feof(fp_A))
@@ -60,7 +73,7 @@ int main(int argc, char *argv[]) {
 		} else if(c != ' ')
 			elements++;
 	} while(1);
-
+	
 	/////////////////////////////
 	printf("Elements in A are %d\n", elements);
 	printf("Raws in A are %d\n", A_raws);
@@ -68,17 +81,9 @@ int main(int argc, char *argv[]) {
 	printf("Columns in A are %d\n\n", A_columns);
 	rewind(fp_A);
 	///////////////////////////////
-
-//	uint64_t **A;
-	//ALLOCATE A ARRAY
-<<<<<<< HEAD:Src/Initializer/main.c
-	uint64_t **A = malloc(A_raws * sizeof(uint64_t*));
-	for(int i = 0; i < A_raws; i++)
-		 A[i] = malloc(A_columns * sizeof(uint64_t));
 	
-	uint64_t **a = malloc(A_columns * sizeof(uint64_t*));
-=======
-
+	//ALLOCATE A ARRAY
+	
 	/* Function: Allocate Array.
 	 * IN UTIL
 	 * IMPLEMENTED AND TESTED
@@ -87,26 +92,14 @@ int main(int argc, char *argv[]) {
 	 * @Ret: On success uint64_t** Array
 	 * @Ret: On Failure NULL
 	 */
-	uint8_t **A = malloc(A_raws * sizeof(char*));
+	uint64_t **A = malloc(A_raws * sizeof(uint64_t*));
 	for(int i = 0; i < A_raws; i++)
-		 A[i] = malloc(A_columns * sizeof(char));
-
-  /* Function: Allocate Array.
-   * IN UTIL
-   * IMPLEMENTED AND TESTED
-   * @Param: int Array_rows
-   * @Param: int Array_columns
-   * @Ret: On success uint64_t** Array
-   * @Ret: On Failure NULL
-   */
-	uint8_t **a = malloc(A_columns * sizeof(char*));
->>>>>>> 58a57f40d7430aba6e529242382b0e8246be5815:Src/main.c
+		 A[i] = malloc(A_columns * sizeof(uint64_t));
+	
+	uint64_t **a = malloc(A_columns * sizeof(uint64_t*));
 	for(int i = 0; i < A_columns; i++)
 		 a[i] = malloc(A_raws * sizeof(uint64_t));
-
-<<<<<<< HEAD:Src/Initializer/main.c
-	fill_array(fp_A, A, A_raws, A_columns);
-=======
+	
 	//FILL A ARRAY
 	/*Function: Fill Array
 	 * IN DATA_TABLE.C
@@ -116,17 +109,10 @@ int main(int argc, char *argv[]) {
 	 * @Ret: On success 1
 	 * @Ret: On failure 0
 	 */
-	for(int i = 0; i < A_raws; i++)
-		for(int j = 0; j < A_columns; j++) 
-			fscanf(fp_A, "%hhu", &A[i][j]);
-	fclose(fp_A);
->>>>>>> 58a57f40d7430aba6e529242382b0e8246be5815:Src/main.c
-
-
-
-
+	fill_array(fp_A, A, A_raws, A_columns);
+	
 	FILE *fp_B = fopen(fileName2, "r");
-
+	
 	elements = 0;
 	int B_raws = 0;
 	do {
@@ -138,7 +124,7 @@ int main(int argc, char *argv[]) {
 		} else if(c != ' ')
 			elements++;
 	} while(1);
-
+	
 	printf("Elements in B are %d\n", elements);
 	printf("Raws in B are %d\n", B_raws);
 	int B_columns = (int)elements / B_raws;
@@ -153,37 +139,44 @@ int main(int argc, char *argv[]) {
 	uint64_t **b = malloc(B_columns * sizeof(uint64_t*));
 	for(int i = 0; i < B_columns; i++)
 		 b[i] = malloc(B_raws * sizeof(uint64_t));
-
+	
 	fill_array(fp_B, B, B_raws, B_columns);
-
+	
 	free(fileName1);
 	free(fileName2);
-
-<<<<<<< HEAD:Src/Initializer/main.c
-printf("AFTER FREE FILENAMES\n");
-	for(int i = 0; i < A_raws; i++)
-		for(int j = 0; j < A_columns; j++)
-			a[j][i] = A[i][j];
-printf("AFTER a\n");
-	for(int i = 0; i < B_raws; i++)
-=======
-
+	
 	/*Function Reverse
-	 * Maybe in Data_Table
-	 * TODO:IMPLEMENT AND TEST
-	 */
+	* Maybe in Data_Table
+	* TODO:IMPLEMENT AND TEST
+	*/
+	reverse_array(A, a, A_raws, A_columns);
+	reverse_array(B, b, B_raws, B_columns);
+	
+	/////////////////////////////////////////////
+	uint64_t **A_raw_ids = malloc(A_raws * sizeof(uint64_t*));
 	for(int i = 0; i < A_raws; i++)
-		for(int j = 0; j < A_columns; j++)
-			a[j][i] = A[i][j];
+		 A_raw_ids[i] = malloc(2 * sizeof(uint64_t));
+	
+	uint64_t **B_raw_ids = malloc(B_raws * sizeof(uint64_t*));
+	for(int i = 0; i < B_raws; i++)
+		 B_raw_ids[i] = malloc(2 * sizeof(uint64_t));
+  
+	sort_raw_ids(a, A_raw_ids, A_raws, 0);
+	sort_raw_ids(b, B_raw_ids, B_raws, 0);
 
-
-  /*Function Reverse*/
-  for(int i = 0; i < B_raws; i++)
->>>>>>> 58a57f40d7430aba6e529242382b0e8246be5815:Src/main.c
-		for(int j = 0; j < B_columns; j++)
-			b[j][i] = B[i][j];
-
-/////////////////////////////////////////////////
+	/////////////////////////////////////////////
+//	uint64_t *A_raw_ids[2];
+//	for(int i = 0; i < 2; i++)
+//		 A_raw_ids[i] = malloc(A_raws * sizeof(uint64_t));
+//	
+//	uint64_t *B_raw_ids[2];
+//	for(int i = 0; i < 2; i++)
+//		 B_raw_ids[i] = malloc(B_raws * sizeof(uint64_t));
+//	
+//	create_raw_ids(a, A_raw_ids, A_raws, 0);
+//	create_raw_ids(b, B_raw_ids, B_raws, 0);
+	
+	/////////////////////////////////////////////
 	//PRINT
 	for(int i = 0; i < A_raws; i++) {
 		for(int j = 0; j < A_columns; j++)
@@ -196,8 +189,14 @@ printf("AFTER a\n");
 			printf("%llu ", a[i][j]);
 		printf("\n");
 	}
+	printf("\nRaw ids\n");
+	for(int i = 0; i < A_raws; i++) {
+		for(int j = 0; j < 2; j++)
+			printf("%llu ", A_raw_ids[i][j]);
+		printf("\n");
+	}
 	printf("\n\n");
-
+	
 	for(int i = 0; i < B_raws; i++) {
 		for(int j = 0; j < B_columns; j++)
 			printf("%llu ", B[i][j]);
@@ -209,8 +208,15 @@ printf("AFTER a\n");
 			printf("%llu ", b[i][j]);
 		printf("\n");
 	}
-//////////////////////////////////////////////////
+	printf("\nRaw ids\n");
+	for(int i = 0; i < B_raws; i++) {
+		for(int j = 0; j < 2; j++)
+			printf("%llu ", B_raw_ids[i][j]);
+		printf("\n");
+	}
 
+	//////////////////////////////////////////////
+	
 	//FREE
 	/*Function Free Array
 	 * In UTILS
@@ -223,17 +229,17 @@ printf("AFTER a\n");
 	for(int i = 0; i < A_columns; i++)
 		free(a[i]);
 	free(a);
-
+	
 	for(int i = 0; i < B_columns; i++)
 		free(b[i]);
 	free(b);
 	for(int i = 0; i < A_raws; i++)
 		free(A[i]);
 	free(A);
-
+	
 	for(int i = 0; i < B_raws; i++)
 		free(B[i]);
 	free(B);
-
+	
 	return 0;
 }
