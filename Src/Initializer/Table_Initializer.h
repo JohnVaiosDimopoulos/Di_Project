@@ -1,5 +1,5 @@
-#ifndef SORT_JOIN_INITIALIZER_H
-#define SORT_JOIN_INITIALIZER_H
+#ifndef SORT_JOIN_TABLE_INITIALIZER_H
+#define SORT_JOIN_TABLE_INITIALIZER_H
 
 /*
  * Get a Table_Files form the Get_FileNames function
@@ -9,4 +9,4 @@
  * return the two new tables
  */
 
-#endif //SORT_JOIN_INITIALIZER_H
+#endif //SORT_JOIN_TABLE_INITIALIZER_H

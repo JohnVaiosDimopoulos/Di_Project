@@ -1,6 +1,6 @@
 #include "Table_Files.h"
 #include <stdlib.h>
-#include "../Util/String_Managing.h"
+#include "../Util/Utilities.h"
 
 struct Table_Files{
   char* File_Name_1;
@@ -9,8 +9,8 @@ struct Table_Files{
 
 Table_FileNames_Ptr Create_Table_Files(const char* File_Name_1 , const char* File_Name_2){
   Table_FileNames_Ptr Table_Files = (Table_FileNames_Ptr)malloc(sizeof(struct Table_Files));
-  Table_Files->File_Name_1=Allocate_and_Copy(File_Name_1);
-  Table_Files->File_Name_2=Allocate_and_Copy(File_Name_2);
+  Table_Files->File_Name_1= Allocate_and_Copy_Str(File_Name_1);
+  Table_Files->File_Name_2= Allocate_and_Copy_Str(File_Name_2);
   return Table_Files;
 }
 
