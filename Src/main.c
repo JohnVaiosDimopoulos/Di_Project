@@ -3,6 +3,21 @@
 #include <string.h>
 #include <stdint.h>
 
+void count_file_elements(FILE *fp, int *elements, int *raws, int *columns) {
+	int c;
+	do {
+		c = fgetc(fp);
+		if(feof(fp))
+			break ;
+		if(c == '\n') {
+			(*raws)++;
+		} else if(c != ' ')
+			(*elements)++;
+	} while(1);
+	(*columns) = (int)(*elements) / (*raws);
+	rewind(fp);
+}
+
 void fill_array(FILE *fp, uint64_t **array, int raws, int columns) {
 	for(int i = 0; i < raws; i++)
 		for(int j = 0; j < columns; j++) 
@@ -10,10 +25,10 @@ void fill_array(FILE *fp, uint64_t **array, int raws, int columns) {
 	fclose(fp);
 }
 
-void reverse_array(uint64_t **original, uint64_t **reversed, int raws, int columns) {
+void transpose_array(uint64_t **original, uint64_t **trans, int raws, int columns) {
 	for(int i = 0; i < raws; i++)
 		for(int j = 0; j < columns; j++)
-			reversed[j][i] = original[i][j];
+			trans[j][i] = original[i][j];
 }
 
 void sort_raw_ids(uint64_t **original, uint64_t **raw_ids, int raws, int column_of_interest) {
@@ -57,29 +72,19 @@ int main(int argc, char *argv[]) {
 	 **/
 	int elements = 0;
 	int A_raws = 0;
-	int c;
+	int A_columns;
 	
 	/*Separate function
 	 * Maybe new module?
 	 * TODO: IMPLEMENT AND TEST
 	 *
 	 * */
-	do {
-		c = fgetc(fp_A);
-		if(feof(fp_A))
-			break ;
-		if(c == '\n') {
-			A_raws++;
-		} else if(c != ' ')
-			elements++;
-	} while(1);
-	
 	/////////////////////////////
+	count_file_elements(fp_A, &elements, &A_raws, &A_columns);
+	
 	printf("Elements in A are %d\n", elements);
 	printf("Raws in A are %d\n", A_raws);
-	int A_columns = (int)elements / A_raws;
 	printf("Columns in A are %d\n\n", A_columns);
-	rewind(fp_A);
 	///////////////////////////////
 	
 	//ALLOCATE A ARRAY
@@ -115,21 +120,13 @@ int main(int argc, char *argv[]) {
 	
 	elements = 0;
 	int B_raws = 0;
-	do {
-		c = fgetc(fp_B);
-		if(feof(fp_B))
-			break ;
-		if(c == '\n') {
-			B_raws++;
-		} else if(c != ' ')
-			elements++;
-	} while(1);
+	int B_columns;
+	
+	count_file_elements(fp_B, &elements, &B_raws, &B_columns);
 	
 	printf("Elements in B are %d\n", elements);
 	printf("Raws in B are %d\n", B_raws);
-	int B_columns = (int)elements / B_raws;
 	printf("Columns line in B are %d\n\n", B_columns);
-	rewind(fp_B);
 	
 	//ALLOCATE B ARRAY
 	uint64_t **B = malloc(B_raws * sizeof(uint64_t*));
@@ -149,8 +146,8 @@ int main(int argc, char *argv[]) {
 	* Maybe in Data_Table
 	* TODO:IMPLEMENT AND TEST
 	*/
-	reverse_array(A, a, A_raws, A_columns);
-	reverse_array(B, b, B_raws, B_columns);
+	transpose_array(A, a, A_raws, A_columns);
+	transpose_array(B, b, B_raws, B_columns);
 	
 	/////////////////////////////////////////////
 	uint64_t **A_raw_ids = malloc(A_raws * sizeof(uint64_t*));
@@ -164,18 +161,6 @@ int main(int argc, char *argv[]) {
 	sort_raw_ids(a, A_raw_ids, A_raws, 0);
 	sort_raw_ids(b, B_raw_ids, B_raws, 0);
 
-	/////////////////////////////////////////////
-//	uint64_t *A_raw_ids[2];
-//	for(int i = 0; i < 2; i++)
-//		 A_raw_ids[i] = malloc(A_raws * sizeof(uint64_t));
-//	
-//	uint64_t *B_raw_ids[2];
-//	for(int i = 0; i < 2; i++)
-//		 B_raw_ids[i] = malloc(B_raws * sizeof(uint64_t));
-//	
-//	create_raw_ids(a, A_raw_ids, A_raws, 0);
-//	create_raw_ids(b, B_raw_ids, B_raws, 0);
-	
 	/////////////////////////////////////////////
 	//PRINT
 	for(int i = 0; i < A_raws; i++) {
