@@ -2,6 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+void fill_array(FILE *fp, uint64_t **array, int raws, int columns) {
+	for(int i = 0; i < raws; i++)
+		for(int j = 0; j < columns; j++) 
+			fscanf(fp, "%llu", &array[i][j]);
+	fclose(fp);
+}
+
 int main(int argc, char *argv[]) {
 	if(argc < 5) {
 		printf("Correct syntax is: %s -T1 fileName1 -T2 fileName2\n", argv[0]);
@@ -39,20 +46,17 @@ int main(int argc, char *argv[]) {
 	printf("Columns in A are %d\n\n", A_columns);
 	rewind(fp_A);
 
+//	uint64_t **A;
 	//ALLOCATE A ARRAY
-	uint8_t **A = malloc(A_raws * sizeof(char*));
+	uint64_t **A = malloc(A_raws * sizeof(uint64_t*));
 	for(int i = 0; i < A_raws; i++)
-		 A[i] = malloc(A_columns * sizeof(char));
+		 A[i] = malloc(A_columns * sizeof(uint64_t));
 	
-	uint8_t **a = malloc(A_columns * sizeof(char*));
+	uint64_t **a = malloc(A_columns * sizeof(uint64_t*));
 	for(int i = 0; i < A_columns; i++)
-		 a[i] = malloc(A_raws * sizeof(char));
+		 a[i] = malloc(A_raws * sizeof(uint64_t));
 
-	//FILL A ARRAY
-	for(int i = 0; i < A_raws; i++)
-		for(int j = 0; j < A_columns; j++) 
-			fscanf(fp_A, "%hhu", &A[i][j]);
-	fclose(fp_A);
+	fill_array(fp_A, A, A_raws, A_columns);
 
 
 	FILE *fp_B = fopen(fileName2, "r");
@@ -76,26 +80,24 @@ int main(int argc, char *argv[]) {
 	rewind(fp_B);
 	
 	//ALLOCATE B ARRAY
-	uint8_t **B = malloc(B_raws * sizeof(char*));
+	uint64_t **B = malloc(B_raws * sizeof(uint64_t*));
 	for(int i = 0; i < B_raws; i++)
-		 B[i] = malloc(B_columns * sizeof(char));
+		 B[i] = malloc(B_columns * sizeof(uint64_t));
 	
-	uint8_t **b = malloc(B_columns * sizeof(char*));
+	uint64_t **b = malloc(B_columns * sizeof(uint64_t*));
 	for(int i = 0; i < B_columns; i++)
-		 b[i] = malloc(B_raws * sizeof(char));
+		 b[i] = malloc(B_raws * sizeof(uint64_t));
 
-	//FILL B ARRAY
-	for(int i = 0; i < B_raws; i++)
-		for(int j = 0; j < B_columns; j++)
-			fscanf(fp_B, "%hhu", &B[i][j]);
-	fclose(fp_B);
+	fill_array(fp_B, B, B_raws, B_columns);
+
 	free(fileName1);
 	free(fileName2);
 
-
+printf("AFTER FREE FILENAMES\n");
 	for(int i = 0; i < A_raws; i++)
 		for(int j = 0; j < A_columns; j++)
 			a[j][i] = A[i][j];
+printf("AFTER a\n");
 	for(int i = 0; i < B_raws; i++)
 		for(int j = 0; j < B_columns; j++)
 			b[j][i] = B[i][j];
@@ -103,26 +105,26 @@ int main(int argc, char *argv[]) {
 	//PRINT
 	for(int i = 0; i < A_raws; i++) {
 		for(int j = 0; j < A_columns; j++)
-			printf("%d ", A[i][j]);
+			printf("%llu ", A[i][j]);
 		printf("\n");
 	}
 	printf("\nReverted\n");
 	for(int i = 0; i < A_columns; i++) {
 		for(int j = 0; j < A_raws; j++)
-			printf("%d ", a[i][j]);
+			printf("%llu ", a[i][j]);
 		printf("\n");
 	}
 	printf("\n\n");
 
 	for(int i = 0; i < B_raws; i++) {
 		for(int j = 0; j < B_columns; j++)
-			printf("%d ", B[i][j]);
+			printf("%llu ", B[i][j]);
 		printf("\n");
 	}
 	printf("\nReverted\n");
 	for(int i = 0; i < B_columns; i++) {
 		for(int j = 0; j < B_raws; j++)
-			printf("%d ", b[i][j]);
+			printf("%llu ", b[i][j]);
 		printf("\n");
 	}
 	
