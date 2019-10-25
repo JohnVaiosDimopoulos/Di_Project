@@ -5,6 +5,7 @@
 
 int main(int argc, char *argv[]) {
 /////////////////////////////////////////////////////////////////////////
+//THIS IS ALREADY IMPLEMENTED AND TESTED
 	if(argc < 5) {
 		printf("Correct syntax is: %s -T1 fileName1 -T2 fileName2\n", argv[0]);
 		exit(1);
@@ -22,7 +23,9 @@ int main(int argc, char *argv[]) {
 /////////////////////////////////////////////////////////////////////////////////////////
 
 
-    /*Separate Function in Utils*/
+    /*Separate Function in Utils
+     * IMPALEMENTED AND TESTED
+     * */
 	FILE *fp_A = fopen(fileName1, "r");
 
 	/* Struct Data_Table
@@ -36,7 +39,11 @@ int main(int argc, char *argv[]) {
 	int c;
 
 
-    /*Separate function*/
+    /*Separate function
+     * Maybe new module?
+     * TODO: IMPLEMENT AND TEST
+     *
+     * */
 	do {
 		c = fgetc(fp_A);
 		if(feof(fp_A))
@@ -59,6 +66,7 @@ int main(int argc, char *argv[]) {
 
 	/* Function: Allocate Array.
 	 * IN UTIL
+	 * IMPLEMENTED AND TESTED
 	 * @Param: Array_rows
 	 * @Param: Array_columns
 	 * @Ret: On success uint64_t** Array
@@ -70,6 +78,7 @@ int main(int argc, char *argv[]) {
 
   /* Function: Allocate Array.
    * IN UTIL
+   * IMPLEMENTED AND TESTED
    * @Param: int Array_rows
    * @Param: int Array_columns
    * @Ret: On success uint64_t** Array
@@ -82,6 +91,7 @@ int main(int argc, char *argv[]) {
 	//FILL A ARRAY
 	/*Function: Fill Array
 	 * IN DATA_TABLE.C
+	 * TODO: IMPLEMENT AND TEST
 	 * @Param: uint64_t*** Array
 	 * @Param: FILE* FilePtr
 	 * @Ret: On success 1
@@ -133,7 +143,10 @@ int main(int argc, char *argv[]) {
 	free(fileName2);
 
 
-	/*Function Reverse*/
+	/*Function Reverse
+	 * Maybe in Data_Table
+	 * TODO:IMPLEMENT AND TEST
+	 */
 	for(int i = 0; i < A_raws; i++)
 		for(int j = 0; j < A_columns; j++)
 			a[j][i] = A[i][j];
@@ -175,6 +188,7 @@ int main(int argc, char *argv[]) {
 	//FREE
 	/*Function Free Array
 	 * In UTILS
+	 * IMPLEMENTED AND TESTED
 	 * @param int Array columns
 	 * @param uint64_t** Array
 	 * @Ret: on success return 1
