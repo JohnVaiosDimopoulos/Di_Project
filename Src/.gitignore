@@ -1,2 +1,6 @@
 /cmake-build-debug/
 /Tests/cmake-build-debug/
+/cmake-build-debug/bin/
+/cmake-build-debug/CMakeFiles/
+/cmake-build-debug/lib/
+/cmake-build-debug/Tests/
