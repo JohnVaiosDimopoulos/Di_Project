@@ -17,8 +17,8 @@ class Data_Table_Tests : public ::testing::Test {
   }
 
   virtual void SetUp() {
-    Input_File_1=fopen("./Test_Table_1", "r");
-    Input_File_2=fopen("./Test_Table_2", "r");
+    Input_File_1=fopen("./Test_Files/Test_Table_1", "r");
+    Input_File_2=fopen("./Test_Files/Test_Table_2", "r");
   }
 
 

@@ -27,7 +27,7 @@ static int Check_Arguments_Number(int argc) {
  * On success returns 1
  * On failure returns 0
  * */
-static int Go_Through_Argv_And_Get_FileNames(Arg_ManagerPtr Manager,char** File_Name_1,char** File_Name_2){
+static int Go_Through_Argv_And_Get_FileNames(Arg_Manager_Ptr Manager, char** File_Name_1, char** File_Name_2){
 
   for(int i=1;i<Manager->argc;i++){
     if(!strcmp(FLAG_TABLE_1,Manager->argv[i])){
@@ -50,7 +50,7 @@ static int Go_Through_Argv_And_Get_FileNames(Arg_ManagerPtr Manager,char** File_
 /* On success returns a Table_FileNames pointer with the names of the two files inside
  * On Failure returns NULL
  */
-Table_FileNames_Ptr Get_File_Names(Arg_ManagerPtr Manager){
+Table_FileNames_Ptr Get_File_Names(Arg_Manager_Ptr Manager){
   char* File_Name_1=NULL;
   char* File_Name_2=NULL;
   if(!Check_Arguments_Number(Manager->argc)){
@@ -67,14 +67,14 @@ Table_FileNames_Ptr Get_File_Names(Arg_ManagerPtr Manager){
 }
 
 
-Arg_ManagerPtr Create_ArgManager(int argc, char** argv){
- Arg_ManagerPtr Manager =(Arg_ManagerPtr)malloc(sizeof(struct Arg_Manager));
+Arg_Manager_Ptr Create_ArgManager(int argc, char** argv){
+ Arg_Manager_Ptr Manager =(Arg_Manager_Ptr)malloc(sizeof(struct Arg_Manager));
  Manager->argv=argv;
  Manager->argc=argc;
  return Manager;
 }
 
-void Delete_ArgManager(Arg_ManagerPtr Manager){
+void Delete_ArgManager(Arg_Manager_Ptr Manager){
   Manager->argv=NULL;
   free(Manager);
 }

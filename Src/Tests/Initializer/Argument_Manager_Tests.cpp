@@ -63,7 +63,7 @@ class Arg_Manager_Test:public testing::Test{
 
 TEST_F(Arg_Manager_Test,CreateManager){
 
-Arg_ManagerPtr Manager = Create_ArgManager(Args_Correct->argc,Args_Correct->argv);
+Arg_Manager_Ptr Manager = Create_ArgManager(Args_Correct->argc, Args_Correct->argv);
 ASSERT_EQ(Args_Correct->argc,Manager->argc);
 ASSERT_EQ(Args_Correct->argv[0],Manager->argv[0]);
 ASSERT_EQ(Args_Correct->argv[1],Manager->argv[1]);
@@ -74,19 +74,19 @@ ASSERT_EQ(Args_Correct->argv[4],Manager->argv[4]);
 
 TEST_F(Arg_Manager_Test, Check_Arguments_Number_Correct){
 
-  Arg_ManagerPtr Manager = Create_ArgManager(Args_Correct->argc,Args_Correct->argv);
+  Arg_Manager_Ptr Manager = Create_ArgManager(Args_Correct->argc, Args_Correct->argv);
   ASSERT_EQ(1, Check_Arguments_Number(Manager->argc));
   Delete_ArgManager(Manager);
 }
 
 TEST_F(Arg_Manager_Test, Check_Arguments_Number_Wrong){
-  Arg_ManagerPtr Manager = Create_ArgManager(Args_Wrong_Num->argc,Args_Wrong_Num->argv);
+  Arg_Manager_Ptr Manager = Create_ArgManager(Args_Wrong_Num->argc, Args_Wrong_Num->argv);
   ASSERT_EQ(0, Check_Arguments_Number(Manager->argc));
   Delete_ArgManager(Manager);
 }
 
 TEST_F(Arg_Manager_Test, Got_Through_Argv_Correct){
-  Arg_ManagerPtr Manager = Create_ArgManager(Args_Correct->argc,Args_Correct->argv);
+  Arg_Manager_Ptr Manager = Create_ArgManager(Args_Correct->argc, Args_Correct->argv);
   char* File_Name_1;
   char* File_Name_2;
   ASSERT_EQ(1,Go_Through_Argv_And_Get_FileNames(Manager,&File_Name_1,&File_Name_2));
@@ -95,26 +95,26 @@ TEST_F(Arg_Manager_Test, Got_Through_Argv_Correct){
 }
 
 TEST_F(Arg_Manager_Test, Got_Through_Argv_Wrong){
-  Arg_ManagerPtr Manager = Create_ArgManager(Args_Wrong_Flag->argc,Args_Wrong_Flag->argv);
+  Arg_Manager_Ptr Manager = Create_ArgManager(Args_Wrong_Flag->argc, Args_Wrong_Flag->argv);
   char* File_Name_1;
   char* File_Name_2;
   ASSERT_EQ(0,Go_Through_Argv_And_Get_FileNames(Manager,&File_Name_1,&File_Name_2));
 }
 
 TEST_F(Arg_Manager_Test, Get_File_Names_Correct){
-  Arg_ManagerPtr Manager = Create_ArgManager(Args_Correct->argc,Args_Correct->argv);
+  Arg_Manager_Ptr Manager = Create_ArgManager(Args_Correct->argc, Args_Correct->argv);
   Table_FileNames_Ptr Table_FileNames = Get_File_Names(Manager);
   ASSERT_STREQ("filename1",Get_FileName_1(Table_FileNames));
   ASSERT_STREQ("filename2",Get_FileName_2(Table_FileNames));
 }
 
 TEST_F(Arg_Manager_Test,  Get_File_Names_Wrong_Flag){
-  Arg_ManagerPtr Manager = Create_ArgManager(Args_Wrong_Flag->argc,Args_Wrong_Flag->argv);
+  Arg_Manager_Ptr Manager = Create_ArgManager(Args_Wrong_Flag->argc, Args_Wrong_Flag->argv);
   EXPECT_EXIT(Get_File_Names(Manager),::testing::ExitedWithCode(255),"");
 }
 
 TEST_F(Arg_Manager_Test, Get_File_Names_Wrong_Num){
-  Arg_ManagerPtr Manager = Create_ArgManager(Args_Wrong_Num->argc,Args_Wrong_Num->argv);
+  Arg_Manager_Ptr Manager = Create_ArgManager(Args_Wrong_Num->argc, Args_Wrong_Num->argv);
   EXPECT_EXIT(Get_File_Names(Manager),::testing::ExitedWithCode(255),"");
 
 }

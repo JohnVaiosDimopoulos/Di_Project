@@ -8,11 +8,11 @@ class Utilities_Tests : public ::testing::Test {
   const char* str = "Test String";
 
   //the root is in Src/Util
-  const char* filename_relative = "../../Tests/Util/test_file";
+  const char* filename_relative = "./Test_Files/test_file";
   const char* filename_wrong = "./test_file";
   //this path depends on the machine you are in
   const char* filename_full_path =
-      "/home/supergohan/Desktop/Di/7_th Semester/Di_Project/Src/Tests/Util/test_file";
+      "/home/supergohan/Desktop/Di/7_th Semester/Di_Project/Src/Tests/Test_Files/test_file";
  protected:
   virtual void TearDown() {
 
