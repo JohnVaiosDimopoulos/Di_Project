@@ -110,12 +110,11 @@ TEST_F(Arg_Manager_Test, Get_File_Names_Correct){
 
 TEST_F(Arg_Manager_Test,  Get_File_Names_Wrong_Flag){
   Arg_ManagerPtr Manager = Create_ArgManager(Args_Wrong_Flag->argc,Args_Wrong_Flag->argv);
-  Table_FileNames_Ptr Table_FileNames = Get_File_Names(Manager);
-  ASSERT_EQ(NULL,Table_FileNames);
+  EXPECT_EXIT(Get_File_Names(Manager),::testing::ExitedWithCode(255),"");
 }
 
 TEST_F(Arg_Manager_Test, Get_File_Names_Wrong_Num){
   Arg_ManagerPtr Manager = Create_ArgManager(Args_Wrong_Num->argc,Args_Wrong_Num->argv);
-  Table_FileNames_Ptr Table_FileNames = Get_File_Names(Manager);
-  ASSERT_EQ(NULL,Table_FileNames);
+  EXPECT_EXIT(Get_File_Names(Manager),::testing::ExitedWithCode(255),"");
+
 }

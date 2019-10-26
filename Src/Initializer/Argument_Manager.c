@@ -15,7 +15,7 @@ struct Arg_Manager {
 
 static int Check_Arguments_Number(int argc) {
   if(argc!=EXPECTED_ARG_COUNT){
-    printf("Wrong Number of Arguments");
+    printf("%s","Wrong Number of Arguments\n");
     return 0;
   }
   return 1;
@@ -39,7 +39,7 @@ static int Go_Through_Argv_And_Get_FileNames(Arg_ManagerPtr Manager,char** File_
       *File_Name_2= Allocate_and_Copy_Str(Manager->argv[i]);
     }
     else{
-      printf("Wrong Argument Format");
+      printf("%s","Wrong Argument format\n");
       return 0;
     }
   }
@@ -53,11 +53,13 @@ static int Go_Through_Argv_And_Get_FileNames(Arg_ManagerPtr Manager,char** File_
 Table_FileNames_Ptr Get_File_Names(Arg_ManagerPtr Manager){
   char* File_Name_1=NULL;
   char* File_Name_2=NULL;
-  if(!Check_Arguments_Number(Manager->argc))
-    return NULL;
+  if(!Check_Arguments_Number(Manager->argc)){
+    exit(-1);
+  }
+
 
   if(!Go_Through_Argv_And_Get_FileNames(Manager,&File_Name_1,&File_Name_2))
-    return NULL;
+    exit(-1);
 
   if(File_Name_1!=NULL && File_Name_2!=NULL)
     return Create_Table_Files(File_Name_1,File_Name_2);

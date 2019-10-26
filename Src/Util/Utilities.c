@@ -1,4 +1,5 @@
 #include "Utilities.h"
+#include "../Initializer/Data_Table/Tuple.h"
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -12,40 +13,44 @@ char* Allocate_and_Copy_Str(const char* source){
 int Open_File_for_Read(FILE** File_Ptr,const char* File_Name){
   if(((*File_Ptr)=fopen(File_Name,"r"))!=NULL)
     return 1;
-  printf("Wrong file path\n");
+  perror("Error at file opening");
   return 0;
 }
 
-uint64_t ** Allocate_Array(int Array_rows,int Array_columns){
+Tuple_Ptr Allocate_Array(int Array_elements){
 
-  if(Array_rows==0 || Array_columns==0)
+  if(Array_elements==0)
     return NULL;
 
-  uint64_t ** New_Array =(uint64_t**) malloc(Array_rows* sizeof(uint64_t*));
+  Tuple_Ptr New_Array = (Tuple_Ptr) malloc(Array_elements* sizeof(struct Tuple));
 
   if(New_Array==NULL){
     printf("Memory Allocation Failed\n");
     return NULL;
   }
-
-  for(int i = 0; i < Array_rows; i++){
-    New_Array[i] =(uint64_t*)malloc(Array_columns * sizeof(uint64_t));
-    if(New_Array[i]==NULL){
-      printf("Memory Allocation Failed\n");
-      return NULL;
-    }
-  }
   return New_Array;
 }
 
-int Free_Array(uint64_t** Array ,int Array_columns){
+int Free_Array(Tuple_Ptr Array) {
 
   if(Array==NULL)
     return 0;
 
-  for(int i =0;i<Array_columns;i++)
-    free(Array[i]);
   free(Array);
   return 1;
 
+
+}
+
+int generic_swap(void* value_1, void* value_2, int size){
+  void* temp;
+
+   if((temp=malloc(size))==NULL)
+    return -1;
+
+  memcpy(temp,value_1,size);
+  memcpy(value_1,value_2,size);
+  memcpy(value_2,temp,size);
+  free(temp);
+  return 0;
 }

@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Sort_Join" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Sort_Join" TARGET_NAME="Sort_Join" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Sort_Join" RUN_TARGET_NAME="Sort_Join">
+  <configuration default="false" name="Sort_Join" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-T1 ./Table_files/TableR -T2 ./Table_files/TableS" WORKING_DIR="file://$PROJECT_DIR$/Src" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Sort_Join" TARGET_NAME="Sort_Join" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Sort_Join" RUN_TARGET_NAME="Sort_Join">
     <method v="2">
       <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
     </method>
