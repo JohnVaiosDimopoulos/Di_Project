@@ -44,7 +44,6 @@ TEST_F(Utilities_Tests,Open_File_for_Read_Wrong){
   ASSERT_EQ(0,Open_File_for_Read(&File_Ptr,filename_wrong));
 }
 
-
 TEST_F(Utilities_Tests, Allocate_Array){
   ASSERT_NE(nullptr,Allocate_Array(3));
 }
@@ -52,7 +51,6 @@ TEST_F(Utilities_Tests, Allocate_Array){
 TEST_F(Utilities_Tests,Allocate_Array_Zero_Input){
   ASSERT_EQ(nullptr,Allocate_Array(0));
 }
-
 
 TEST_F(Utilities_Tests, Free_Array){
   int Array_elements=3;
@@ -64,7 +62,6 @@ TEST_F(Utilities_Tests,Free_Array_Nullptr){
   Tuple_Ptr Array = Allocate_Array(0);
   ASSERT_EQ(0, Free_Array(Array));
 }
-
 
 TEST_F(Utilities_Tests, Generic_Swap_Test_int){
   int x = 2,y=3;
@@ -80,7 +77,6 @@ TEST_F(Utilities_Tests,Generic_Swap_Test_string){
   ASSERT_STREQ("hey",str2);
 
 }
-
 
 TEST_F(Utilities_Tests,Generic_Swap_Test_Tuple){
   Tuple_Ptr Tuple1 = (Tuple_Ptr)malloc(sizeof(Tuple));

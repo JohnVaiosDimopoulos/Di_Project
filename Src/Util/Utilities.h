@@ -1,6 +1,6 @@
 #ifndef SORT_JOIN_UTILITIES_H
 #define SORT_JOIN_UTILITIES_H
-#include <bits/types/FILE.h>
+#include <stdio.h>
 #include <stdint.h>
 #include "../Initializer/Data_Table/Tuple.h"
 char* Allocate_and_Copy_Str(const char*);

@@ -19,7 +19,7 @@ struct{
 } typedef Table_Size;
 
 Data_Table_Ptr Create_Data_Table(int num_of_elements, int num_of_rows, int num_of_columns) {
-  Data_Table_Ptr Table = (Data_Table_Ptr)malloc(sizeof(Data_Table_Ptr));
+  Data_Table_Ptr Table = (Data_Table_Ptr)malloc(sizeof(struct Data_Table));
   Table->num_of_columns=num_of_columns;
   Table->num_of_elements=num_of_elements;
   Table->num_of_rows=num_of_rows;
