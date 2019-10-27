@@ -64,6 +64,7 @@ Table_FileNames_Ptr Get_File_Names(Arg_Manager_Ptr Manager){
   if(File_Name_1!=NULL && File_Name_2!=NULL)
     return Create_Table_Files(File_Name_1,File_Name_2);
 
+  return NULL;
 }
 
 

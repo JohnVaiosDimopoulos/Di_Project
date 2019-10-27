@@ -125,6 +125,9 @@ Data_Table_Ptr Set_up_Data_Table(FILE* File_ptr){
   Table_Size size = Count_Array_elements(File_ptr);
   Data_Table_Ptr Table = Create_Data_Table(size.Table_elements,size.Table_rows,size.Table_columns);
   Fill_array_from_file(Table,File_ptr);
+
+  Print_Table(Table);
+
   Transpose_Array(Table);
   generic_swap(&Table->num_of_rows,&Table->num_of_columns, sizeof(int));
   return Table;
@@ -146,7 +149,7 @@ void Delete_Data_Table(Data_Table_Ptr Table){
 void Print_Table(Data_Table_Ptr Table){
   for(int r =0; r<Table->num_of_rows;r++){
     for(int c =0; c<Table->num_of_columns;c++){
-      printf("%lu",(Table->Array + r*Table->num_of_columns +c)->element);
+      printf("%llu",(Table->Array + r*Table->num_of_columns +c)->element);
     }
 
     printf("\n");
