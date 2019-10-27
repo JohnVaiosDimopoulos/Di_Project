@@ -31,9 +31,9 @@ Data_Table_Ptr Create_Data_Table(int num_of_elements, int num_of_rows, int num_o
 }
 
 void Check_and_update_current_row(
-    const int elements_per_row,
-    int *elements_read_in_current_row,
-    int *current_row) {
+  const int elements_per_row,
+  int *elements_read_in_current_row,
+  int *current_row) {
 
   if((*elements_read_in_current_row) ==elements_per_row){
     (*current_row)++;
