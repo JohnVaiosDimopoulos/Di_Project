@@ -73,6 +73,7 @@ Histogram_Ptr Create_Histogram(Data_Table_Ptr Table) {
   Histogram->Array=Allocate_Array(num_of_rows);
   if(Histogram->Array==NULL)
     return NULL;
+
   Fill_Histogram(Table, Histogram);
 
   Print_Histogram(Histogram);
@@ -85,3 +86,9 @@ void Print_Histogram(Histogram_Ptr Histogram){
     printf("value: %llu, quantity: %llu\n",(Histogram->Array + r)->value, (Histogram->Array + r)->quantity);
   printf("\n\n");
 }
+
+void Delete_Histogram(Histogram_Ptr Histogram){
+  Free_Array(Histogram->Array);
+  free(Histogram);
+}
+

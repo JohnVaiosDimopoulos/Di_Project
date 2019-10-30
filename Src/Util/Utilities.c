@@ -39,7 +39,6 @@ int Free_Array(Tuple_Ptr Array) {
   free(Array);
   return 1;
 
-
 }
 
 int generic_swap(void* value_1, void* value_2, int size){

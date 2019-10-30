@@ -131,5 +131,4 @@ TEST_F(Data_Table_Tests,SetUp_test){
     ASSERT_EQ(Table->Array[i].element, Transposed_Array[i]);
   }
 
-
 }
