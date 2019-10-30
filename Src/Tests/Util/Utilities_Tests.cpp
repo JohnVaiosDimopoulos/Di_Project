@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <cstdlib>
-#include "../../Initializer/Data_Table/Tuple.h"
+#include "../../Basis_Structs/Tuple.h"
 #include "../../Util/Utilities.c"
 
 class Utilities_Tests : public ::testing::Test {
@@ -41,7 +41,7 @@ TEST_F(Utilities_Tests, Open_File_for_Read_Full){
 
 TEST_F(Utilities_Tests,Open_File_for_Read_Wrong){
   FILE* File_Ptr;
-  ASSERT_EQ(0,Open_File_for_Read(&File_Ptr,filename_wrong));
+  ASSERT_EXIT(Open_File_for_Read(&File_Ptr,filename_wrong),::testing::ExitedWithCode(255),"");
 }
 
 TEST_F(Utilities_Tests, Allocate_Array){

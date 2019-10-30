@@ -7,18 +7,21 @@ class Data_Table_Tests : public ::testing::Test {
   int num_of_elements = 10;
   int num_of_rows = 5;
   int num_of_columns = 2;
-  FILE* Input_File_1,*Input_File_2;
+  int Join_Column_num=1;
+  FILE* Input_File_1,*Input_File_2,*wrong_format;
 
  protected:
  protected:
   virtual void TearDown() {
    fclose(Input_File_1);
    fclose(Input_File_2);
+   fclose(wrong_format);
   }
 
   virtual void SetUp() {
     Input_File_1=fopen("./Test_Files/Test_Table_1", "r");
     Input_File_2=fopen("./Test_Files/Test_Table_2", "r");
+    wrong_format=fopen("./Test_Files/test_file","r");
   }
 
 
@@ -28,18 +31,21 @@ TEST_F(Data_Table_Tests,Create_Data_Table_Corect){
   Data_Table_Ptr Table =Create_Data_Table(
       num_of_elements,
       num_of_rows,
-      num_of_columns);
+      num_of_columns,
+      Join_Column_num);
 
   ASSERT_EQ(Table->num_of_columns,num_of_columns);
   ASSERT_EQ(Table->num_of_elements,num_of_elements);
   ASSERT_EQ(Table->num_of_rows, num_of_rows);
+  ASSERT_EQ(Table->Join_Column_num, Join_Column_num);
 }
 
 TEST_F(Data_Table_Tests,Create_Data_Table_Wrong) {
   Data_Table_Ptr Table = Create_Data_Table(
       0,
       num_of_rows,
-      num_of_columns);
+      num_of_columns,
+      Join_Column_num);
 
   ASSERT_EQ(nullptr,Table);
 }
@@ -70,7 +76,8 @@ uint64_t Array_Test_Elements[] = {1,2,3,2,3,3,3,3,4,4,2,1};
 uint64_t Array_Test_Row_Id[] = {1,1,1,2,2,2,3,3,3,4,4,4};
 
 Table_Size Size = {4,3,12};
-Data_Table_Ptr Table = Create_Data_Table(Size.Table_elements,Size.Table_rows,Size.Table_columns);
+Data_Table_Ptr Table = Create_Data_Table(
+    Size.Table_elements, Size.Table_rows, Size.Table_columns, Join_Column_num);
 
 Fill_array_from_file(Table, Input_File_1);
 for(int i = 0;i<Size.Table_elements;i++){
@@ -85,7 +92,8 @@ uint64_t Array_Test_Elements[] = {1,2,1,6,3,2};
 uint64_t Array_Test_Row_Id[] = {1,1,2,2,3,3};
 
 Table_Size Size = {3,2,6};
-Data_Table_Ptr Table = Create_Data_Table(Size.Table_elements,Size.Table_rows,Size.Table_columns);
+Data_Table_Ptr Table = Create_Data_Table(
+    Size.Table_elements, Size.Table_rows, Size.Table_columns, Join_Column_num);
 
 Fill_array_from_file(Table, Input_File_2);
 for(int i = 0;i<Size.Table_elements;i++){
@@ -97,7 +105,8 @@ for(int i = 0;i<Size.Table_elements;i++){
 TEST_F(Data_Table_Tests,Traspose_Test_Table_1) {
   uint64_t Transposed_Array[] = {1, 2, 3, 4, 2, 3, 3, 2, 3, 3, 4, 1};
   Table_Size Size = {4, 3, 12};
-  Data_Table_Ptr Table = Create_Data_Table(Size.Table_elements, Size.Table_rows, Size.Table_columns);
+  Data_Table_Ptr Table = Create_Data_Table(
+      Size.Table_elements, Size.Table_rows, Size.Table_columns, Join_Column_num);
   Fill_array_from_file(Table, Input_File_1);
 
   Transpose_Array(Table);
@@ -109,7 +118,9 @@ TEST_F(Data_Table_Tests,Traspose_Test_Table_1) {
 TEST_F(Data_Table_Tests,Traspose_Test_Table_2) {
   uint64_t Transposed_Array[] = {1, 1, 3, 2, 6, 2};
   Table_Size Size = {3, 2, 6};
-  Data_Table_Ptr Table = Create_Data_Table(Size.Table_elements, Size.Table_rows, Size.Table_columns);
+  Data_Table_Ptr Table = Create_Data_Table(
+      Size.Table_elements, Size.Table_rows, Size.Table_columns, Join_Column_num);
+
   Fill_array_from_file(Table, Input_File_2);
 
   Transpose_Array(Table);
@@ -118,18 +129,29 @@ TEST_F(Data_Table_Tests,Traspose_Test_Table_2) {
   }
 }
 
-TEST_F(Data_Table_Tests,SetUp_test){
+TEST_F(Data_Table_Tests,SetUp_correct_test){
   uint64_t Transposed_Array[] = {1, 2, 3, 4, 2, 3, 3, 2, 3, 3, 4, 1};
   Table_Size Size_Test  = {4,3,12};
 
 
-  Data_Table_Ptr Table = Set_up_Data_Table(Input_File_1);
+  Data_Table_Ptr Table = Set_up_Data_Table(Input_File_1, Join_Column_num);
   ASSERT_EQ(Table->num_of_elements,12);
   ASSERT_EQ(Table->num_of_rows,3);
   ASSERT_EQ(Table->num_of_columns,4);
+  ASSERT_EQ(Table->Join_Column_num,1);
   for (int i = 0; i < Size_Test.Table_elements; i++) {
     ASSERT_EQ(Table->Array[i].element, Transposed_Array[i]);
   }
-
-
 }
+
+TEST_F(Data_Table_Tests,SetUp_negative_join_column_test){
+  ASSERT_EXIT(
+      Set_up_Data_Table(Input_File_1,-1),::testing::ExitedWithCode(255),"");
+}
+
+TEST_F(Data_Table_Tests,SetUp_wrong_join_column_test){
+  ASSERT_EXIT(
+      Set_up_Data_Table(Input_File_1,-1),::testing::ExitedWithCode(255),"");
+}
+
+

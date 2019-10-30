@@ -1,5 +1,5 @@
 #include "Utilities.h"
-#include "../Initializer/Data_Table/Tuple.h"
+#include "../Basis_Structs/Tuple.h"
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -13,8 +13,8 @@ char* Allocate_and_Copy_Str(const char* source){
 int Open_File_for_Read(FILE** File_Ptr,const char* File_Name){
   if(((*File_Ptr)=fopen(File_Name,"r"))!=NULL)
     return 1;
-  perror("Error at file opening");
-  return 0;
+  printf("Error at file opening\n");
+  exit(-1);
 }
 
 Tuple_Ptr Allocate_Array(int Array_elements){

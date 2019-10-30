@@ -1,14 +1,12 @@
 #include <stdlib.h>
 #include "Data_Table.h"
-#include "Tuple.h"
 #include "../../Util/Utilities.h"
-
-
 
 struct Data_Table{
   int num_of_elements;
   int num_of_rows;
   int num_of_columns;
+  int Join_Column_num;
   Tuple_Ptr Array;
 };
 
@@ -18,11 +16,12 @@ struct{
   int Table_elements;
 } typedef Table_Size;
 
-Data_Table_Ptr Create_Data_Table(int num_of_elements, int num_of_rows, int num_of_columns) {
+Data_Table_Ptr Create_Data_Table(int num_of_elements, int num_of_rows, int num_of_columns,int Join_Column_num){
   Data_Table_Ptr Table = (Data_Table_Ptr)malloc(sizeof(struct Data_Table));
   Table->num_of_columns=num_of_columns;
   Table->num_of_elements=num_of_elements;
   Table->num_of_rows=num_of_rows;
+  Table->Join_Column_num=Join_Column_num;
   Table->Array=Allocate_Array(Table->num_of_elements);
   if(Table->Array==NULL)
     return NULL;
@@ -69,7 +68,7 @@ static Table_Size Count_Array_elements(FILE* File_Ptr){
 
  Table_Size Size = Init_Table_Size();
 
-  int c;
+  int c=0;
 
   do {
     c = fgetc(File_Ptr);
@@ -85,6 +84,8 @@ static Table_Size Count_Array_elements(FILE* File_Ptr){
       (Size.Table_elements)++;
 
   } while(1);
+
+
 
   (Size.Table_columns) = (int)(Size.Table_elements) / (Size.Table_rows);
   rewind(File_Ptr);
@@ -121,24 +122,48 @@ static void Transpose_Array(Data_Table_Ptr Table){
   }
 }
 
-Data_Table_Ptr Set_up_Data_Table(FILE* File_ptr){
+Data_Table_Ptr Set_up_Data_Table(FILE* File_ptr,const int Join_Column_num){
   Table_Size size = Count_Array_elements(File_ptr);
-  Data_Table_Ptr Table = Create_Data_Table(size.Table_elements,size.Table_rows,size.Table_columns);
-  Fill_array_from_file(Table,File_ptr);
 
-  Print_Table(Table);
+  if(size.Table_columns<Join_Column_num || Join_Column_num<=0){
+    printf("Wrong Join Column");
+    exit(-1);
+  }
+
+  Data_Table_Ptr Table = Create_Data_Table(
+      size.Table_elements,size.Table_rows,size.Table_columns,Join_Column_num);
+
+  if(Table==NULL){
+    printf("Error At Table creation");
+    exit(-1);
+  }
+
+  Fill_array_from_file(Table,File_ptr);
+//  Print_Table(Table);
 
   Transpose_Array(Table);
   generic_swap(&Table->num_of_rows,&Table->num_of_columns, sizeof(int));
   return Table;
 }
 
-int Get_Num_of_raws(Data_Table_Ptr Table){
+int Get_Num_of_rows(Data_Table_Ptr Table){
   return Table->num_of_rows;
 }
 
 int Get_Num_of_columns(Data_Table_Ptr Table){
   return Table->num_of_columns;
+}
+
+int Get_Num_of_elements(Data_Table_Ptr Table){
+  return Table->num_of_elements;
+}
+
+Tuple_Ptr Get_Array(Data_Table_Ptr Table){
+  return Table->Array;
+}
+
+int Get_Join_Column_Num(Data_Table_Ptr Table){
+  return Table->Join_Column_num;
 }
 
 void Delete_Data_Table(Data_Table_Ptr Table){
