@@ -1,12 +1,15 @@
 CC = gcc
 CFLAGS  = -g -Wall
 
-main: main.o Initializer/Argument_Manager.o Initializer/Table_Files.o Initializer/Table_Initializer.o Initializer/Data_Table/Data_Table.o Util/Utilities.o
-	$(CC) $(CFLAGS) -o main main.o Argument_Manager.o Table_Files.o Table_Initializer.o Data_Table.o Utilities.o
+main: main.o Initializer/Argument_Manager.o Initializer/Table_Files.o Initializer/Table_Initializer.o Initializer/Data_Table/Data_Table.o Util/Utilities.o Initializer/Histogram/Histogram.o 
+	$(CC) $(CFLAGS) -o main main.o Argument_Manager.o Table_Files.o Table_Initializer.o Data_Table.o Utilities.o Histogram.o
 
-main.o: main.c Initializer/Argument_Manager.h Initializer/Table_Files.h Initializer/Table_Initializer.h Initializer/Data_Table/Data_Table.h Util/Utilities.h
+main.o: main.c Initializer/Argument_Manager.h Initializer/Table_Files.h Initializer/Table_Initializer.h Initializer/Data_Table/Data_Table.h Util/Utilities.h Initializer/Histogram/Histogram.h
 	$(CC) -c main.c 
 
+Initializer/Histogram/Histogram.o: Initializer/Histogram/Histogram.c Initializer/Data_Table/Data_Table.h Initializer/Histogram/Histogram.h
+	$(CC) -c Initializer/Histogram/Histogram.c 
+	
 Util/Utilities.o: Util/Utilities.c Util/Utilities.h
 	$(CC) -c Util/Utilities.c
 

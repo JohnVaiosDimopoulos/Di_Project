@@ -65,7 +65,7 @@ static void Fill_array_from_file(Data_Table_Ptr Table, FILE* File_Ptr){
 
 }
 
-static  Table_Size Count_Array_elements(FILE* File_Ptr){
+static Table_Size Count_Array_elements(FILE* File_Ptr){
 
  Table_Size Size = Init_Table_Size();
 
@@ -151,9 +151,7 @@ void Print_Table(Data_Table_Ptr Table){
     for(int c =0; c<Table->num_of_columns;c++){
       printf("%llu",(Table->Array + r*Table->num_of_columns +c)->element);
     }
-
     printf("\n");
   }
   printf("\n\n");
-
 }
