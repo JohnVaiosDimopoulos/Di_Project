@@ -8,7 +8,9 @@ int main(int argc,char** argv){
   Initialize(&Data_Table_1,&Data_Table_2,Manager);
   Print_Table(Data_Table_1);
   Print_Table(Data_Table_2);
-
+  Delete_ArgManager(Manager);
+  Delete_Data_Table(Data_Table_1);
+  Delete_Data_Table(Data_Table_2);
 
   return 0;
 }

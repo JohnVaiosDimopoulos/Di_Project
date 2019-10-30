@@ -61,8 +61,13 @@ Table_FileNames_Ptr Get_File_Names(Arg_Manager_Ptr Manager){
   if(!Go_Through_Argv_And_Get_FileNames(Manager,&File_Name_1,&File_Name_2))
     exit(-1);
 
-  if(File_Name_1!=NULL && File_Name_2!=NULL)
-    return Create_Table_Files(File_Name_1,File_Name_2);
+  if(File_Name_1!=NULL && File_Name_2!=NULL){
+    Table_FileNames_Ptr Table_Files = Create_Table_Files(File_Name_1,File_Name_2);
+    free(File_Name_1);
+    free(File_Name_2);
+    return Table_Files;
+  }
+
 
   return NULL;
 }
