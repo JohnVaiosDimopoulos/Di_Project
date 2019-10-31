@@ -3,7 +3,7 @@
 
 class Histogram_Tests : public ::testing::Test {
  public:
-  Data_Table_Ptr Table;
+  RelationPtr Relation;
 
  protected:
  protected:
@@ -16,10 +16,10 @@ class Histogram_Tests : public ::testing::Test {
 };
 
 TEST_F(Histogram_Tests, Create_Histogram) {
-  Histogram_Ptr Histogram = Create_Histogram(Table);
+  Histogram_Ptr Histogram = Create_Histogram(Relation);
 
 ////////////////////////////////////////
-  ASSERT_EQ(Histogram->num_of_rows, num_of_rows);
+  ASSERT_EQ(Histogram->num_of_tuples, num_of_tuples);
   ASSERT_EQ(Histogram->num_of_elements,num_of_elements);
 ////////////////////////////////////////
 }
