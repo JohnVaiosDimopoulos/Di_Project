@@ -174,7 +174,8 @@ void Delete_Data_Table(Data_Table_Ptr Table){
 void Print_Table(Data_Table_Ptr Table){
   for(int r =0; r<Table->num_of_rows;r++){
     for(int c =0; c<Table->num_of_columns;c++){
-      printf("%llu",(Table->Array + r*Table->num_of_columns +c)->element);
+      printf("%llu", (Table->Array + r*Table->num_of_columns +c)->element);
+//      printf("(%llu, %llu)", (Table->Array + r*Table->num_of_columns +c)->row_id, (Table->Array + r*Table->num_of_columns +c)->element);
     }
     printf("\n");
   }

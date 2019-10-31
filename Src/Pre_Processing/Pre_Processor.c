@@ -27,8 +27,9 @@ RelationPtr Get_Relation(Data_Table_Ptr Table){
 
 void Print_Relation(RelationPtr Relation){
   for(int i =0;i<Relation->num_of_tuples;i++){
-    printf("(El:%lu,Raw:%d)\n",Relation->tuples[i].element,Relation->tuples[i].row_id);
+    printf("(El:%llu,Raw:%llu)\n",Relation->tuples[i].element,Relation->tuples[i].row_id);
   }
+  printf("\n\n");
 }
 
 void Delete_Relation(RelationPtr Relation){

@@ -1,5 +1,5 @@
 #ifndef SORT_JOIN_RELATION_H
-#define SORT_JOIN_RELATION_
+#define SORT_JOIN_RELATION_H
 #include "Tuple.h"
 
 typedef struct {
