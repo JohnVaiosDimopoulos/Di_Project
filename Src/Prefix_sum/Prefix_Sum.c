@@ -7,7 +7,6 @@
 
 
 struct Psum{
-  int num_of_elements;
   int num_of_tuples;
   Psum_Tuple_Ptr Array;
 };
@@ -45,10 +44,6 @@ void Print_Psum(Psum_Ptr Psum){
 
 int Get_Num_of_psum(Psum_Ptr Psum){
   return Psum->num_of_tuples;
-}
-
-int Get_Num_of_psum_elements(Psum_Ptr Psum){
-  return Psum->num_of_elements;
 }
 
 Psum_Tuple_Ptr Get_psum_Array(Psum_Ptr Psum){

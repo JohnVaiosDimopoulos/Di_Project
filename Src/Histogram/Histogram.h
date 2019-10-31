@@ -7,7 +7,7 @@
 
 typedef struct Histogram* Histogram_Ptr;
 
-Histogram_Ptr Create_Histogram(RelationPtr Relation, const int byte_to_check);
+Histogram_Ptr Get_Histogram(RelationPtr Relation, const int byte_to_check);
 void Print_Histogram(Histogram_Ptr);
 int Get_Num_of_hist_tuples(Histogram_Ptr);
 Hist_Tuple_Ptr Get_Hist_Array(Histogram_Ptr);
