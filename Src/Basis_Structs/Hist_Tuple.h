@@ -3,7 +3,7 @@
 #include <stdint.h>
 
 struct Hist_Tuple{
-  uint64_t value;
+  uint8_t value;
   uint64_t quantity;
 };
 

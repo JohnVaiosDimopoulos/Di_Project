@@ -48,7 +48,7 @@ static int Count_File_elements(FILE* File_Ptr) {
     }
   }
   rewind(File_Ptr);
-//  printf("num of elements = %d\n\n", num_of_elements);
+  printf("num of elements = %d\n\n", num_of_elements);
   return num_of_elements;
 };
 
