@@ -29,18 +29,19 @@ int Count_Histogram_Rows(RelationPtr Relation, const int byte_to_check) {
 
 void Fill_Histogram(RelationPtr Relation, Histogram_Ptr Histogram, const int byte_to_check) {
 
-  uint64_t first_byte[Relation->num_of_tuples];
+//  uint64_t first_byte[Relation->num_of_tuples];
+  uint8_t current_byte;
   uint8_t map[256] = {0};
   Tuple_Ptr Array = Relation->tuples;
   for(int c = 0; c < Relation->num_of_tuples; c++){
     uint8_t current_element = Array[c].element;
-    first_byte[c] =  current_element >> ((byte_to_check-1) * 8)& 0xff ;
+    current_byte =  current_element >> ((byte_to_check-1) * 8)& 0xff ;
     /*shift 0 bytes (in our case it will be >> 7 * 8)*/
-    map[first_byte[c]]++;
+    map[current_byte]++;
   }
 
   int r=0;
-  for(int i = 0; i < 9; i++) {
+  for(int i = 0; i < 256; i++) {
     if(map[i]) {
       (Histogram->Array[r]).quantity = map[i];
       (Histogram->Array[r]).value = i;
@@ -74,7 +75,7 @@ Histogram_Ptr Create_Histogram(RelationPtr Relation, const int byte_to_check) {
 void Print_Histogram(Histogram_Ptr Histogram){
   for(int r =0; r < Histogram->num_of_tuples; r++)
 //    printf("value: %lu, quantity: %lu\n",(Histogram->Array[r]).value, (Histogram->Array[r]).quantity);
-    printf("value: %llu, quantity: %llu\n",(Histogram->Array[r]).value, (Histogram->Array[r]).quantity);
+    printf("value: %d, quantity: %llu\n",(Histogram->Array[r]).value, (Histogram->Array[r]).quantity);
   printf("\n\n");
 }
 
