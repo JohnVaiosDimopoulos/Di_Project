@@ -3,6 +3,7 @@
 #include "Pre_Processing/Pre_Processor.h"
 #include "Initializer/Table_Initializer.h"
 #include "Histogram/Histogram.h"
+#include "Histogram/Prefix_Sum.h"
 
 int main(int argc,char** argv){
   Data_Table_Ptr Data_Table_1,Data_Table_2;
@@ -21,7 +22,14 @@ int main(int argc,char** argv){
   Print_Histogram(Histogram1);
   Print_Histogram(Histogram2);
 
+  Psum_Ptr Psum1 = Create_Psum(Histogram1);
+  Psum_Ptr Psum2 = Create_Psum(Histogram2);
+  Print_Psum(Psum1);
+  Print_Psum(Psum2);
+////////////////////////////////////
+
   Delete_ArgManager(Manager);
+
   Delete_Histogram(Histogram1);
   Delete_Histogram(Histogram2);
 
