@@ -12,13 +12,13 @@ struct Histogram{
 
 int Count_Histogram_Rows(RelationPtr Relation, const int byte_to_check) {
 
-  int map[256] = {0};
+  uint8_t map[256] = {0};
   int different_values = 0;
   Tuple_Ptr Array = Relation->tuples;
 
-  uint64_t current;
+  uint8_t current;
   for(int c = 0; c < Relation->num_of_tuples; c++) {
-    current = Array[c].element >> ((byte_to_check-1) * 8);
+    current = Array[c].element >> ((byte_to_check-1) * 8)& 0xff;
     if(!map[current])
       different_values++;
     map[current]++;
@@ -30,11 +30,11 @@ int Count_Histogram_Rows(RelationPtr Relation, const int byte_to_check) {
 void Fill_Histogram(RelationPtr Relation, Histogram_Ptr Histogram, const int byte_to_check) {
 
   uint64_t first_byte[Relation->num_of_tuples];
-  int map[256] = {0};
+  uint8_t map[256] = {0};
   Tuple_Ptr Array = Relation->tuples;
   for(int c = 0; c < Relation->num_of_tuples; c++){
-    uint64_t current_element = Array[c].element;
-    first_byte[c] =  current_element >> ((byte_to_check-1) * 8);
+    uint8_t current_element = Array[c].element;
+    first_byte[c] =  current_element >> ((byte_to_check-1) * 8)& 0xff ;
     /*shift 0 bytes (in our case it will be >> 7 * 8)*/
     map[first_byte[c]]++;
   }
@@ -51,10 +51,16 @@ void Fill_Histogram(RelationPtr Relation, Histogram_Ptr Histogram, const int byt
 }
 
 Histogram_Ptr Create_Histogram(RelationPtr Relation, const int byte_to_check) {
+
+  if(byte_to_check>8){
+    printf("byte_to_check out of range");
+    exit(-1);
+  }
+
   Histogram_Ptr Histogram = (Histogram_Ptr)malloc(sizeof(struct Histogram));
 
   Histogram->num_of_tuples = Count_Histogram_Rows(Relation, byte_to_check);
-//  printf("diff = %d\n\n", Histogram->num_of_tuples);
+  printf("diff = %d\n\n", Histogram->num_of_tuples);
 
   Histogram->Array=(Hist_Tuple_Ptr)Allocate_Array(Histogram->num_of_tuples);
   if(Histogram->Array==NULL)

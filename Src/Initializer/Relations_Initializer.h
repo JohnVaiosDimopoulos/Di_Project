@@ -5,5 +5,6 @@
 #include "Argument_Manager.h"
 
 void Initialize(Arg_Manager_Ptr, RelationPtr *Relation_1, RelationPtr *Relation_2);
+void Initialize_Relation(RelationPtr *Relation, const char *filename);
 
 #endif //SORT_JOIN_RELATIONS_INITIALIZER_H

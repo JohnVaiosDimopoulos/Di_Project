@@ -29,7 +29,6 @@ static void Fill_array_from_file(RelationPtr Relation, FILE* File_Ptr){
   
   for(int i =0;i<lines_to_read;i++){
     int read = getline(&line_buffer,&line_buffer_size,File_Ptr);
-  //  sscanf(line_buffer, "%lu,%lu", &Relation->tuples[i].element, &Relation->tuples[i].row_id);
     sscanf(line_buffer, "%llu, %llu", &Relation->tuples[i].element, &Relation->tuples[i].row_id);
   }
   free(line_buffer);
@@ -44,6 +43,7 @@ static int Count_File_elements(FILE* File_Ptr) {
     if (c == '\n')
       num_of_elements++;
     if (c == EOF) {
+      num_of_elements++;
       break;
     }
   }

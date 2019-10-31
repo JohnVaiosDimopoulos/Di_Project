@@ -11,8 +11,8 @@ int main(int argc,char** argv){
   Print_Relation(Relation_1);
   Print_Relation(Relation_2);
 
-  Histogram_Ptr Histogram1 = Create_Histogram(Relation_1, 2);
-  Histogram_Ptr Histogram2 = Create_Histogram(Relation_2, 2);
+  Histogram_Ptr Histogram1 = Create_Histogram(Relation_1, 1);
+  Histogram_Ptr Histogram2 = Create_Histogram(Relation_2, 1);
   Print_Histogram(Histogram1);
   Print_Histogram(Histogram2);
 

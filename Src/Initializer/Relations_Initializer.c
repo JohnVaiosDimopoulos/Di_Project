@@ -1,7 +1,7 @@
 #include "Relations_Initializer.h"
 #include "../Util/Utilities.h"
 
-static void Initialize_Relation(RelationPtr *Relation, const char *filename) {
+void Initialize_Relation(RelationPtr *Relation, const char *filename) {
   FILE* File;
   if(Open_File_for_Read(&File,filename)){
     *Relation=Set_up_Relation(File);
