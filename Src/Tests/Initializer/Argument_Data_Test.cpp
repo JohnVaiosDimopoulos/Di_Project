@@ -21,20 +21,17 @@ class Argument_Data_Tests: public testing::Test{
 
 TEST_F(Argument_Data_Tests, Create_Argument_Data){
   Argument_Data_Ptr Data = Create_Argument_Data(
-      File_Name_1, File_Name_2,Column_1,Column_2);
+      File_Name_1, File_Name_2);
   ASSERT_STREQ(File_Name_1, Data->File_Name_1);
   ASSERT_STREQ(File_Name_2, Data->File_Name_2);
-  ASSERT_EQ(Column_1, Data->Join_Column_1);
-  ASSERT_EQ(Column_2, Data->Join_Column_2);
+
 }
 
 TEST_F(Argument_Data_Tests, Getters_Test){
   Argument_Data_Ptr Data = Create_Argument_Data(
-      File_Name_1, File_Name_2,Column_1,Column_2);
+      File_Name_1, File_Name_2);
   ASSERT_STREQ(File_Name_1,Get_FileName_1(Data));
   ASSERT_STREQ(File_Name_2,Get_FileName_2(Data));
-  ASSERT_EQ(Column_1,Get_Join_Column_1(Data));
-  ASSERT_EQ(Column_2,Get_Join_Column_2(Data));
 
 }
 

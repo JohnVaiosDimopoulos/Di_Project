@@ -7,14 +7,12 @@
 
 typedef struct Histogram* Histogram_Ptr;
 
-Histogram_Ptr Create_Histogram(RelationPtr);
+Histogram_Ptr Create_Histogram(RelationPtr Relation, const int byte_to_check);
 void Print_Histogram(Histogram_Ptr);
 int Get_Num_of_hist_tuples(Histogram_Ptr);
-int Get_Num_of_hist_elements(Histogram_Ptr);
 Hist_Tuple_Ptr Get_Hist_Array(Histogram_Ptr);
 void Delete_Histogram(Histogram_Ptr);
-void Print_Histogram(Histogram_Ptr);
 
-//Histogram_Ptr Set_up_Data_Table(FILE *File_ptr);
+//Histogram_Ptr Set_up_Relation(FILE *File_ptr);
 
-#endif //SORT_JOIN_DATA_TABLE_H
+#endif //SORT_JOIN_RELATION_CREATOR_H

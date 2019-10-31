@@ -1,8 +1,8 @@
 #include <stdlib.h>
-#include "../Initializer/Data_Table/Data_Table.h"
+#include "../Initializer/Relation_Creator/Relation_Creator.h"
 #include "../Basis_Structs/Tuple.h"
 #include "../Basis_Structs/Relation.h"
-#include "Histogram.h"
+#include "../Histogram/Histogram.h"
 #include "../Basis_Structs/Hist_Tuple.h"
 #include "Prefix_Sum.h"
 #include "../Basis_Structs/Psum_Tuple.h"
@@ -25,13 +25,13 @@ void Fill_Psum(Histogram_Ptr Histogram, Psum_Ptr Psum){
 }
 
 Psum_Ptr Create_Psum(Histogram_Ptr Histogram) {
- 
+
   Psum_Ptr Psum = (Psum_Ptr)malloc(sizeof(struct Psum));
 
 //  printf("diff = %d\n\n", num_of_tuples);
   Psum->num_of_tuples = Get_Num_of_hist_tuples(Histogram);
 
-  Psum->Array = Allocate_Array(Psum->num_of_tuples);
+//  Psum->Array = Allocate_Array(Psum->num_of_tuples);
   if(Psum->Array==NULL)
     return NULL;
 
@@ -59,7 +59,8 @@ Psum_Tuple_Ptr Get_psum_Array(Psum_Ptr Psum){
 }
 
 void Delete_Psum(Psum_Ptr Psum){
-  Free_Array(Psum->Array);
+//  Free_Array(Psum->Array);
+  free(Psum->Array);
   free(Psum);
 }
 

@@ -14,4 +14,4 @@ Psum_Tuple_Ptr Get_psum(Psum_Ptr);
 void Delete_Psum(Psum_Ptr);
 void Print_Psum(Psum_Ptr);
 
-#endif //SORT_JOIN_DATA_TABLE_H
+#endif //SORT_JOIN_RELATION_CREATOR_H

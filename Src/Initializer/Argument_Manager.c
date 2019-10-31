@@ -4,11 +4,9 @@
 #include <stdio.h>
 #include <string.h>
 
-#define EXPECTED_ARG_COUNT 9
+#define EXPECTED_ARG_COUNT 5
 #define FLAG_TABLE_1 "-T1"
 #define FLAG_TABLE_2 "-T2"
-#define FLAG_JOIN_COLUMN_1 "-C1"
-#define FLAG_JOIN_COLUMN_2 "-C2"
 
 struct Arg_Manager {
   int argc;
@@ -29,8 +27,7 @@ static int Check_Arguments_Number(int argc) {
  * On success returns 1
  * On failure returns 0
  * */
-static int Go_Through_Argv_And_Get_FileNames(
-    Arg_Manager_Ptr Manager, char** File_Name_1, char** File_Name_2, int* Join_Column_1,int* Join_Column_2){
+static int Go_Through_Argv_And_Get_FileNames(Arg_Manager_Ptr Manager, char **File_Name_1, char **File_Name_2) {
 
   for(int i=1;i<Manager->argc;i++){
     if(!strcmp(FLAG_TABLE_1,Manager->argv[i])){
@@ -40,14 +37,6 @@ static int Go_Through_Argv_And_Get_FileNames(
     else if(!strcmp(FLAG_TABLE_2,Manager->argv[i])){
       i++;
       *File_Name_2= Allocate_and_Copy_Str(Manager->argv[i]);
-    }
-    else if(!strcmp(FLAG_JOIN_COLUMN_1,Manager->argv[i])){
-      i++;
-      *Join_Column_1 = atoi(Manager->argv[i]);
-    }
-    else if(!strcmp(FLAG_JOIN_COLUMN_2,Manager->argv[i])){
-      i++;
-      *Join_Column_2 = atoi(Manager->argv[i]);
     }
     else{
       printf("%s","Wrong Argument format\n");
@@ -64,18 +53,17 @@ static int Go_Through_Argv_And_Get_FileNames(
 Argument_Data_Ptr Get_Argument_Data(Arg_Manager_Ptr Manager){
   char* File_Name_1=NULL;
   char* File_Name_2=NULL;
-  int Join_Column_1=0;
-  int Join_Column_2=0;
+
   if(!Check_Arguments_Number(Manager->argc)){
     exit(-1);
   }
 
 
-  if(!Go_Through_Argv_And_Get_FileNames(Manager,&File_Name_1,&File_Name_2,&Join_Column_1,&Join_Column_2))
+  if(!Go_Through_Argv_And_Get_FileNames(Manager, &File_Name_1, &File_Name_2))
     exit(-1);
 
-  if(File_Name_1!=NULL && File_Name_2!=NULL && Join_Column_1!=0 && Join_Column_2!=0){
-    Argument_Data_Ptr Argument_Data = Create_Argument_Data(File_Name_1, File_Name_2, Join_Column_1, Join_Column_2);
+  if(File_Name_1!=NULL && File_Name_2!=NULL ){
+    Argument_Data_Ptr Argument_Data = Create_Argument_Data(File_Name_1, File_Name_2);
     free(File_Name_1);
     free(File_Name_2);
     return Argument_Data;
