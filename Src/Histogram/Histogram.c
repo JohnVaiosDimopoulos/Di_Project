@@ -12,15 +12,17 @@ struct Histogram{
 
 int Count_Histogram_Rows(RelationPtr Relation, const int byte_to_check) {
 
-  uint8_t map[256] = {0};
+  int map[256] = {0};
   int different_values = 0;
   Tuple_Ptr Array = Relation->tuples;
 
   uint8_t current;
   for(int c = 0; c < Relation->num_of_tuples; c++) {
     current = Array[c].element >> ((byte_to_check-1) * 8)& 0xff;
-    if(!map[current])
+    if(!map[current]){
       different_values++;
+    }
+
     map[current]++;
   }
 
@@ -31,7 +33,7 @@ void Fill_Histogram(RelationPtr Relation, Histogram_Ptr Histogram, const int byt
 
 //  uint64_t first_byte[Relation->num_of_tuples];
   uint8_t current_byte;
-  uint8_t map[256] = {0};
+  int map[256] = {0};
   Tuple_Ptr Array = Relation->tuples;
   for(int c = 0; c < Relation->num_of_tuples; c++){
     uint8_t current_element = Array[c].element;
