@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../../../Initializer/Histogram/Histogram.c"
+#include "../../Histogram/Histogram.c"
 
 class Histogram_Tests : public ::testing::Test {
  public:
@@ -24,7 +24,7 @@ TEST_F(Histogram_Tests, Create_Histogram) {
 ////////////////////////////////////////
 }
 
-TEST_F(Data_Table_Tests,Create_Data_Table_Wrong) {
+TEST_F(Histogram_Tests,Create_Histogram_Wrong) {
   Histogram_Ptr Histogram = Create_Histogram(NULL);
   ASSERT_EQ(nullptr,Table);
 }
