@@ -11,7 +11,7 @@ RelationPtr Create_Relation(int num_of_elements) {
     exit(-1);
   }
 
-  Relation->num_of_tuples=num_of_elements;
+  Relation->num_of_tuples = num_of_elements;
   Relation->tuples=Allocate_Array(Relation->num_of_tuples);
   if(Relation->tuples==NULL || Relation->num_of_tuples==0)
     return NULL;
@@ -22,16 +22,17 @@ RelationPtr Create_Relation(int num_of_elements) {
 
 
 static void Fill_array_from_file(RelationPtr Relation, FILE* File_Ptr){
-char* line_buffer = NULL;
-size_t line_buffer_size = 0;
-int lines_to_read = Relation->num_of_tuples;
-
-
-for(int i =0;i<lines_to_read;i++){
-  int read = getline(&line_buffer,&line_buffer_size,File_Ptr);
-  sscanf(line_buffer, "%lu,%lu", &Relation->tuples[i].element, &Relation->tuples[i].row_id);
-}
-free(line_buffer);
+  char* line_buffer = NULL;
+  size_t line_buffer_size = 0;
+  int lines_to_read = Relation->num_of_tuples;
+  
+  
+  for(int i =0;i<lines_to_read;i++){
+    int read = getline(&line_buffer,&line_buffer_size,File_Ptr);
+  //  sscanf(line_buffer, "%lu,%lu", &Relation->tuples[i].element, &Relation->tuples[i].row_id);
+    sscanf(line_buffer, "%llu, %llu", &Relation->tuples[i].element, &Relation->tuples[i].row_id);
+  }
+  free(line_buffer);
 
 }
 
@@ -42,12 +43,12 @@ static int Count_File_elements(FILE* File_Ptr) {
   for (int c = getc(File_Ptr);; c = getc(File_Ptr)){
     if (c == '\n')
       num_of_elements++;
-  if (c == EOF) {
-      num_of_elements++;
-    break;
+    if (c == EOF) {
+      break;
+    }
   }
-}
-rewind(File_Ptr);
+  rewind(File_Ptr);
+//  printf("num of elements = %d\n\n", num_of_elements);
   return num_of_elements;
 };
 
@@ -83,7 +84,8 @@ void Delete_Relation(RelationPtr Relation){
 
 void Print_Relation(RelationPtr Relation){
   for(int i=0;i<Relation->num_of_tuples;i++){
-    printf("(Row id: %lu),(Value: %lu)\n",Relation->tuples[i].row_id,Relation->tuples[i].element);
+//    printf("(Row id: %lu),(Value: %lu)\n",Relation->tuples[i].row_id,Relation->tuples[i].element);
+    printf("(Row id: %llu),(Value: %llu)\n",Relation->tuples[i].row_id,Relation->tuples[i].element);
   }
   printf("\n\n");
 }

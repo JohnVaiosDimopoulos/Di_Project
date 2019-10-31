@@ -15,6 +15,7 @@ struct Arg_Manager {
 
 static int Check_Arguments_Number(int argc) {
   if(argc!=EXPECTED_ARG_COUNT){
+    printf("%d",argc);
     printf("%s","Wrong Number of Arguments\n");
     return 0;
   }

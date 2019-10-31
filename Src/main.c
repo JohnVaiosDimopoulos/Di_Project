@@ -27,8 +27,8 @@ int main(int argc,char** argv){
   Delete_Histogram(Histogram1);
   Delete_Histogram(Histogram2);
 
-  Delete_Relation(Relation_1);
-  Delete_Relation(Relation_2);
+//  Delete_Relation(Relation_1);
+//  Delete_Relation(Relation_2);
 
 
 

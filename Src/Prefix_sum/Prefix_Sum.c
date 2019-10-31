@@ -31,7 +31,7 @@ Psum_Ptr Create_Psum(Histogram_Ptr Histogram) {
 //  printf("diff = %d\n\n", num_of_tuples);
   Psum->num_of_tuples = Get_Num_of_hist_tuples(Histogram);
 
-//  Psum->Array = Allocate_Array(Psum->num_of_tuples);
+  Psum->Array = Allocate_Array(Psum->num_of_tuples);
   if(Psum->Array==NULL)
     return NULL;
 
