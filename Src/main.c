@@ -16,8 +16,8 @@ int main(int argc,char** argv){
   Print_Histogram(Histogram1);
   Print_Histogram(Histogram2);
 
-  Psum_Ptr Psum1 = Create_Psum(Histogram1);
-  Psum_Ptr Psum2 = Create_Psum(Histogram2);
+  Psum_Ptr Psum1 = Get_Psum(Histogram1);
+  Psum_Ptr Psum2 = Get_Psum(Histogram2);
   Print_Psum(Psum1);
   Print_Psum(Psum2);
 ////////////////////////////////////
