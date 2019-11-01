@@ -3,7 +3,7 @@
 #include <stdint.h>
 
 struct Psum_Tuple{
-  uint64_t value;
+  uint8_t value;
   uint64_t sum;
 };
 

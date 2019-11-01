@@ -7,9 +7,8 @@
 
 typedef struct Psum* Psum_Ptr;
 
-Psum_Ptr Create_Psum(Histogram_Ptr);
+Psum_Ptr Get_Psum(Histogram_Ptr Histogram);
 int Get_Num_of_psum_tuples(Psum_Ptr);
-int Get_Num_of_psum_elements(Psum_Ptr);
 Psum_Tuple_Ptr Get_psum(Psum_Ptr);
 void Delete_Psum(Psum_Ptr);
 void Print_Psum(Psum_Ptr);

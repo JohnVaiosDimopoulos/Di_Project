@@ -10,7 +10,7 @@ struct Histogram{
   Hist_Tuple_Ptr Array;
 };
 
-int Count_Histogram_Rows(RelationPtr Relation, const int byte_to_check) {
+static int Count_Histogram_Rows(RelationPtr Relation, const int byte_to_check) {
 
   int map[256] = {0};
   int different_values = 0;
@@ -29,9 +29,8 @@ int Count_Histogram_Rows(RelationPtr Relation, const int byte_to_check) {
   return different_values;
 }
 
-void Fill_Histogram(RelationPtr Relation, Histogram_Ptr Histogram, const int byte_to_check) {
+static void Fill_Histogram(RelationPtr Relation, Histogram_Ptr Histogram, const int byte_to_check) {
 
-//  uint64_t first_byte[Relation->num_of_tuples];
   uint8_t current_byte;
   int map[256] = {0};
   Tuple_Ptr Array = Relation->tuples;
@@ -53,22 +52,26 @@ void Fill_Histogram(RelationPtr Relation, Histogram_Ptr Histogram, const int byt
   }
 }
 
-Histogram_Ptr Create_Histogram(RelationPtr Relation, const int byte_to_check) {
+static Histogram_Ptr Create_Histogram(int histogram_rows_num){
+  Histogram_Ptr Histogram = (Histogram_Ptr)malloc(sizeof(struct Histogram));
+  Histogram->Array=(Hist_Tuple_Ptr)Allocate_Array(histogram_rows_num);
+  Histogram->num_of_tuples=histogram_rows_num;
+  if(Histogram->Array==NULL)
+    exit(-1);
+  return Histogram;
+}
+
+
+
+Histogram_Ptr Get_Histogram(RelationPtr Relation, const int byte_to_check) {
 
   if(byte_to_check>8){
     printf("byte_to_check out of range");
     exit(-1);
   }
 
-  Histogram_Ptr Histogram = (Histogram_Ptr)malloc(sizeof(struct Histogram));
-
-  Histogram->num_of_tuples = Count_Histogram_Rows(Relation, byte_to_check);
-  printf("diff = %d\n\n", Histogram->num_of_tuples);
-
-  Histogram->Array=(Hist_Tuple_Ptr)Allocate_Array(Histogram->num_of_tuples);
-  if(Histogram->Array==NULL)
-    exit(-1);
-
+  int histogram_rows_num = Count_Histogram_Rows(Relation, byte_to_check);
+  Histogram_Ptr Histogram = Create_Histogram(histogram_rows_num);
   Fill_Histogram(Relation, Histogram, byte_to_check);
 
   return Histogram;
@@ -76,7 +79,6 @@ Histogram_Ptr Create_Histogram(RelationPtr Relation, const int byte_to_check) {
 
 void Print_Histogram(Histogram_Ptr Histogram){
   for(int r =0; r < Histogram->num_of_tuples; r++)
-//    printf("value: %lu, quantity: %lu\n",(Histogram->Array[r]).value, (Histogram->Array[r]).quantity);
     printf("value: %d, quantity: %llu\n",(Histogram->Array[r]).value, (Histogram->Array[r]).quantity);
   printf("\n\n");
 }

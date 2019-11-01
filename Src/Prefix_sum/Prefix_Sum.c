@@ -7,12 +7,11 @@
 
 
 struct Psum{
-  int num_of_elements;
   int num_of_tuples;
   Psum_Tuple_Ptr Array;
 };
 
-void Fill_Psum(Histogram_Ptr Histogram, Psum_Ptr Psum){
+static void Fill_Psum(Histogram_Ptr Histogram, Psum_Ptr Psum){
   (Psum->Array[0]).sum = 0;
   (Psum->Array[0]).value = Get_Hist_Array(Histogram)[0].value;
   for(int i = 1; i < Get_Num_of_hist_tuples(Histogram); i++) {
@@ -21,17 +20,23 @@ void Fill_Psum(Histogram_Ptr Histogram, Psum_Ptr Psum){
   }
 }
 
-Psum_Ptr Create_Psum(Histogram_Ptr Histogram) {
-
+static Psum_Ptr Create_Psum(int Psum_num_of_tuples){
   Psum_Ptr Psum = (Psum_Ptr)malloc(sizeof(struct Psum));
-
-//  printf("diff = %d\n\n", num_of_tuples);
-  Psum->num_of_tuples = Get_Num_of_hist_tuples(Histogram);
-
+  Psum->num_of_tuples=Psum_num_of_tuples;
   Psum->Array = (Psum_Tuple_Ptr)Allocate_Array(Psum->num_of_tuples);
-  if(Psum->Array==NULL)
-    return NULL;
+  if(Psum->Array==NULL){
+    printf("Error at memory Allocation");
+    exit(-1);
+  }
+  return Psum;
 
+}
+
+
+
+Psum_Ptr Get_Psum(Histogram_Ptr Histogram) {
+  int Psum_num_of_tuples = Get_Num_of_hist_tuples(Histogram);
+  Psum_Ptr Psum = Create_Psum(Psum_num_of_tuples);
   Fill_Psum(Histogram, Psum);
 
   return Psum;
@@ -47,16 +52,11 @@ int Get_Num_of_psum(Psum_Ptr Psum){
   return Psum->num_of_tuples;
 }
 
-int Get_Num_of_psum_elements(Psum_Ptr Psum){
-  return Psum->num_of_elements;
-}
-
 Psum_Tuple_Ptr Get_psum_Array(Psum_Ptr Psum){
   return Psum->Array;
 }
 
 void Delete_Psum(Psum_Ptr Psum){
-//  Free_Array(Psum->Array);
   free(Psum->Array);
   free(Psum);
 }
