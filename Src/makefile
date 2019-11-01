@@ -1,12 +1,14 @@
 CC = gcc
 CFLAGS  = -g -Wall
 
-main: main.o Initializer/Argument_Manager.o Initializer/Relations_Initializer.o Initializer/Arguments_Data.o Initializer/Relation_Creator/Relation_Creator.o Util/Utilities.o Histogram/Histogram.o Prefix_Sum/Prefix_Sum.o
-	$(CC) $(CFLAGS) -o main main.o Argument_Manager.o Relations_Initializer.o Arguments_Data.o Relation_Creator.o Utilities.o Histogram.o Prefix_Sum.o
+main: main.o Initializer/Argument_Manager.o Initializer/Relations_Initializer.o Initializer/Arguments_Data.o Initializer/Relation_Creator/Relation_Creator.o Util/Utilities.o Histogram/Histogram.o Prefix_Sum/Prefix_Sum.o New_Relation.o
+	$(CC) $(CFLAGS) -o main main.o Argument_Manager.o Relations_Initializer.o Arguments_Data.o Relation_Creator.o Utilities.o Histogram.o Prefix_Sum.o New_Relation.o
 
-main.o: main.c Initializer/Argument_Manager.h Initializer/Arguments_Data.h Initializer/Relations_Initializer.h Initializer/Relation_Creator Util/Utilities.h Histogram/Histogram.h Prefix_sum/Prefix_Sum.h
+main.o: main.c Initializer/Argument_Manager.h Initializer/Arguments_Data.h Initializer/Relations_Initializer.h Initializer/Relation_Creator Util/Utilities.h Histogram/Histogram.h Prefix_sum/Prefix_Sum.h New_Relation.h
 	$(CC) -c main.c 
 
+New_Relation.o: New_Relation.c New_Relation.h
+	$(CC) -c New_Relation.c 
 
 Initializer/Relation_Creator/Relation_Creator.o: Initializer/Relation_Creator/Relation_Creator.c Initializer/Relation_Creator/Relation_Creator.h
 	$(CC) -c Initializer/Relation_Creator/Relation_Creator.c 
