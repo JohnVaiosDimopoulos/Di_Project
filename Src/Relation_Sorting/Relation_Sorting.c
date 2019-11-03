@@ -20,7 +20,7 @@
  * (for each bucket)
  * for(int i =0;i<Psum->num_of_elements;i++){
  * New_Relation = Create_Relation_with_given_array(
- * Histogram->Array[i].quantityRelation->Array[Psum->Array[i].sum]);
+ * (size)Histogram->Array[i].quantity,(bicket_start)Relation->Array[Psum->Array[i].sum]);
  * Sort_Relation(New_Relation,Relation',byte-1);
  * New_Relation->Array=NULL;
  * Delete(New_Relation);
