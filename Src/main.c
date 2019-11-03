@@ -3,6 +3,7 @@
 #include "Initializer/Relations_Initializer.h"
 #include "Histogram/Histogram.h"
 #include "Prefix_sum/Prefix_Sum.h"
+#include "New_Relation.h"
 
 int main(int argc,char** argv){
   RelationPtr Relation_1,Relation_2;
@@ -22,7 +23,20 @@ int main(int argc,char** argv){
   Print_Psum(Psum2);
 ////////////////////////////////////
 
+  RelationPtr R1, R2;
+  R1 = Create_Relation(Relation_1->num_of_tuples);
+  R2 = Create_Relation(Relation_2->num_of_tuples);
+
+  Copy_Relation(Relation_1, R1, Histogram1, Psum1);
+  Copy_Relation(Relation_2, R2, Histogram2, Psum2);
+  Print_Relation(R1);
+  Print_Relation(R2);
+
+////////////////////////////////////
   Delete_ArgManager(Manager);
+  
+  Delete_Psum(Psum1);
+  Delete_Psum(Psum2);
 
   Delete_Histogram(Histogram1);
   Delete_Histogram(Histogram2);

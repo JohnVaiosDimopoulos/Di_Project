@@ -44,11 +44,11 @@ Psum_Ptr Get_Psum(Histogram_Ptr Histogram) {
 
 void Print_Psum(Psum_Ptr Psum){
   for(int r =0; r < Psum->num_of_tuples; r++)
-    printf("value: %llu, sum: %llu\n",(Psum->Array[r]).value, (Psum->Array[r]).sum);
+    printf("value: %hhu, sum: %llu\n",(Psum->Array[r]).value, (Psum->Array[r]).sum);
   printf("\n\n");
 }
 
-int Get_Num_of_psum(Psum_Ptr Psum){
+int Get_Num_of_psum_tuples(Psum_Ptr Psum){
   return Psum->num_of_tuples;
 }
 
