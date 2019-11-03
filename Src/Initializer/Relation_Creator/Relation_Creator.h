@@ -6,6 +6,7 @@
 #include "../../Basis_Structs/Relation.h"
 
 RelationPtr Create_Relation(int);
+RelationPtr Create_Relation_with_giver_array(int,Tuple_Ptr);
 RelationPtr Set_up_Relation(FILE *);
 int Get_Num_of_elements(RelationPtr);
 Tuple_Ptr Get_Tuples(RelationPtr Relation);
