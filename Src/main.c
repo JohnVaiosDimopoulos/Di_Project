@@ -12,8 +12,8 @@ int main(int argc,char** argv){
   Print_Relation(Relation_1);
   Print_Relation(Relation_2);
 
-  Histogram_Ptr Histogram1 = Get_Histogram(Relation_1, 1);
-  Histogram_Ptr Histogram2 = Get_Histogram(Relation_2, 1);
+  Histogram_Ptr Histogram1 = Get_Histogram(Relation_1, 2);
+  Histogram_Ptr Histogram2 = Get_Histogram(Relation_2, 2);
   Print_Histogram(Histogram1);
   Print_Histogram(Histogram2);
 
@@ -23,14 +23,14 @@ int main(int argc,char** argv){
   Print_Psum(Psum2);
 ////////////////////////////////////
 
-  RelationPtr R1, R2;
-  R1 = Create_Relation(Relation_1->num_of_tuples);
-  R2 = Create_Relation(Relation_2->num_of_tuples);
-
-  Copy_Relation(Relation_1, R1, Histogram1, Psum1);
-  Copy_Relation(Relation_2, R2, Histogram2, Psum2);
-  Print_Relation(R1);
-  Print_Relation(R2);
+//  RelationPtr R1, R2;
+//  R1 = Create_Relation(Relation_1->num_of_tuples);
+//  R2 = Create_Relation(Relation_2->num_of_tuples);
+//
+//  Copy_Relation(Relation_1, R1, Histogram1, Psum1);
+//  Copy_Relation(Relation_2, R2, Histogram2, Psum2);
+//  Print_Relation(R1);
+//  Print_Relation(R2);
 
 ////////////////////////////////////
   Delete_ArgManager(Manager);

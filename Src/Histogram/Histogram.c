@@ -35,7 +35,7 @@ static void Fill_Histogram(RelationPtr Relation, Histogram_Ptr Histogram, const 
   int map[256] = {0};
   Tuple_Ptr Array = Relation->tuples;
   for(int c = 0; c < Relation->num_of_tuples; c++){
-    uint8_t current_element = Array[c].element;
+    uint64_t current_element = Array[c].element;
     current_byte =  current_element >> ((byte_to_check-1) * 8)& 0xff ;
     /*shift 0 bytes (in our case it will be >> 7 * 8)*/
     map[current_byte]++;
