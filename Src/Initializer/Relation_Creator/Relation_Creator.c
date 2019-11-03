@@ -19,6 +19,13 @@ RelationPtr Create_Relation(int num_of_elements) {
 
 }
 
+//TODO:TEST THIS
+RelationPtr Create_Relation_with_giver_array(int num_of_elements,Tuple_Ptr Array){
+  RelationPtr Relation = (RelationPtr)malloc(sizeof(Relation));
+  Relation->num_of_tuples=num_of_elements;
+  Relation->tuples=Array;
+  return Relation;
+}
 
 
 static void Fill_array_from_file(RelationPtr Relation, FILE* File_Ptr){
