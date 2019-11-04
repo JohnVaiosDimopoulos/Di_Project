@@ -49,18 +49,17 @@ static void Sort_Relation(RelationPtr Relation, RelationPtr R, int byte) {
   Copy_Relation(Relation, R, Psum, byte);
   memcpy(Relation->tuples, R->tuples, R->num_of_tuples * sizeof(struct Tuple));
 
-
-  for(int bucket = 0; bucket < PSUM_SIZE; bucket++){
-    if(Get_psum_Array(Psum)[bucket]==-1)
-      continue;
-
-    RelationPtr New_Relation = Create_Relation_with_given_array(
-    Get_Histogram_Array(Histogram)[bucket], &(Relation->tuples[Get_psum_Array(Psum)[bucket]]));
-    Print_Relation(New_Relation);
-    Sort_Relation(New_Relation, R, byte - 1);
-    New_Relation->tuples = NULL;
-    Delete_Relation(New_Relation);
-  }
+//  for(int bucket = 0; bucket < PSUM_SIZE; bucket++){
+//    if(Get_psum_Array(Psum)[bucket]==-1)
+//      continue;
+//
+//    RelationPtr New_Relation = Create_Relation_with_given_array(
+//    Get_Histogram_Array(Histogram)[bucket], &(Relation->tuples[Get_psum_Array(Psum)[bucket]]));
+//    Print_Relation(New_Relation);
+//    Sort_Relation(New_Relation, R, byte - 1);
+//    New_Relation->tuples = NULL;
+//    Delete_Relation(New_Relation);
+//  }
 
   Delete_Psum(Psum);
   Delete_Histogram(Histogram);
