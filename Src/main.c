@@ -17,7 +17,7 @@ int main(int argc,char** argv){
 
   RelationPtr Relation_new = Create_Relation(Get_Num_of_elements(Relation_1));
   Copy_Relation(Relation_1,Relation_new,Psum,8);
-  Print_Relation(Relation_1);
+  Print_Relation(Relation_new);
 
 //  Sort()
 
