@@ -19,7 +19,7 @@ RelationPtr Create_Relation(int num_of_elements) {
 
 }
 
-//TODO:TEST THIS
+
 RelationPtr Create_Relation_with_given_array(int num_of_elements,Tuple_Ptr Array){
   RelationPtr Relation = (RelationPtr)malloc(sizeof(Relation));
   
@@ -61,7 +61,6 @@ static int Count_File_elements(FILE* File_Ptr) {
     }
   }
   rewind(File_Ptr);
-  printf("num of elements = %d\n\n", num_of_elements);
   return num_of_elements;
 };
 
@@ -98,7 +97,7 @@ void Delete_Relation(RelationPtr Relation){
 void Print_Relation(RelationPtr Relation){
   for(int i=0;i<Relation->num_of_tuples;i++){
 //    printf("(Row id: %lu),(Value: %lu)\n",Relation->tuples[i].row_id,Relation->tuples[i].element);
-    printf("(Row id: %llu),(Value: %llu)\n",Relation->tuples[i].row_id,Relation->tuples[i].element);
+    printf("%d :(Row id: %llu),(Value: %llu)\n",i,Relation->tuples[i].row_id,Relation->tuples[i].element);
   }
   printf("\n\n");
 }

@@ -90,3 +90,19 @@ TEST_F(Relation_Creator_Tests,SetUp_test){
   }
 }
 
+TEST_F(Relation_Creator_Tests,Create_Relation_with_given_array){
+  RelationPtr Relation = Set_up_Relation(Input_File_1);
+  RelationPtr New_Relation = Create_Relation_with_given_array(Relation->num_of_tuples,Relation->tuples);
+  for(int i =0;i<Relation->num_of_tuples;i++){
+    ASSERT_EQ(Relation->tuples[i].element,New_Relation->tuples[i].element);
+    ASSERT_EQ(Relation->tuples[i].row_id,New_Relation->tuples[i].row_id);
+  }
+}
+
+TEST_F(Relation_Creator_Tests,Create_Relation_with_given_array_middle){
+  RelationPtr Relation = Set_up_Relation(Input_File_1);
+  RelationPtr New_Relation = Create_Relation_with_given_array(5,&(Relation->tuples[2]));
+  for(int i=0,j=2;i<5;i++,j++){
+    ASSERT_EQ(Relation->tuples[j].element,New_Relation->tuples[i].element);
+  }
+}
