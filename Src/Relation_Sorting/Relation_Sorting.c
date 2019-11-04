@@ -93,11 +93,10 @@ void Sort_Relation(RelationPtr Relation, RelationPtr R, int byte) {
 
   Copy_Relation(Relation, R, Histogram, Psum, byte);
 
-//  memcpy(&(Relation->tuples), &(R->tuples), R->num_of_tuples);
-//  memcpy(Relation->tuples, R->tuples, R->num_of_tuples);
+  memcpy(Relation->tuples, R->tuples, R->num_of_tuples * sizeof(struct Tuple));
 //  Print_Relation(Relation);
 
-  //(for each bucket)
+//  //(for each bucket)
 //  for(int bucket = 0; bucket < Get_Num_of_psum_tuples(Psum); bucket++){
 //    RelationPtr New_Relation = Create_Relation_with_given_array(
 //    Get_Hist_Array(Histogram)[bucket].quantity, &(Relation->tuples[Get_psum_Array(Psum)[bucket].sum]));
