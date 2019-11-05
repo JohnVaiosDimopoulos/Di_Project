@@ -53,7 +53,6 @@ int* Get_psum_Array(Psum_Ptr Psum){
 }
 
 void Delete_Psum(Psum_Ptr Psum){
-  free(Psum->Array);
   free(Psum);
 }
 

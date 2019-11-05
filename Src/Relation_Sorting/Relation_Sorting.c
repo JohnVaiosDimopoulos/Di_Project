@@ -40,30 +40,29 @@ void Copy_Relation(RelationPtr Source_rel,RelationPtr Dest_rel,Psum_Ptr Psum,con
 static void Sort_Relation(RelationPtr Relation, RelationPtr R, int byte) {
   printf("SORT\n");
 
-  if(byte==0)
-    return;
+
+
 
   Histogram_Ptr Histogram = Get_Histogram(Relation, byte);
   Psum_Ptr Psum = Get_Psum(Histogram);
 
   Copy_Relation(Relation, R, Psum, byte);
   memcpy(Relation->tuples, R->tuples, R->num_of_tuples * sizeof(struct Tuple));
-//  Print_Relation(Relation);
 
-  for(int bucket = 0; bucket < PSUM_SIZE; bucket++){
-    if(Get_psum_Array(Psum)[bucket]==-1)
-      continue;
+//  for(int bucket = 0; bucket < PSUM_SIZE; bucket++){
+//    if(Get_psum_Array(Psum)[bucket]==-1)
+//      continue;
+//
+//    RelationPtr New_Relation = Create_Relation_with_given_array(
+//    Get_Histogram_Array(Histogram)[bucket], &(Relation->tuples[Get_psum_Array(Psum)[bucket]]));
+//    Print_Relation(New_Relation);
+//    Sort_Relation(New_Relation, R, byte - 1);
+//    New_Relation->tuples = NULL;
+//    Delete_Relation(New_Relation);
+//  }
 
-    RelationPtr New_Relation = Create_Relation_with_given_array(
-    Get_Histogram_Array(Histogram)[bucket], &(Relation->tuples[Get_psum_Array(Psum)[bucket]]));
-    Print_Relation(New_Relation);
-    Sort_Relation(New_Relation, R, byte - 1);
-    New_Relation->tuples = NULL;
-    Delete_Relation(New_Relation);
-  }
-
-//  Delete_Histogram(Histogram);
-//  Delete_Psum(Psum);
+  Delete_Psum(Psum);
+  Delete_Histogram(Histogram);
 }
 
 
