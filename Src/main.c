@@ -10,6 +10,9 @@ int main(int argc,char** argv){
   Arg_Manager_Ptr Manager = Create_ArgManager(argc, argv);
   Initialize(Manager, &Relation_1, &Relation_2);
 
+//  Print_Relation(Relation_1);
+//  Print_Relation(Relation_2);
+
 ////////////////////////////////////
   Sort(Relation_1);
   Sort(Relation_2);
