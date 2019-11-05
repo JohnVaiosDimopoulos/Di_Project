@@ -85,7 +85,6 @@ void Sort(RelationPtr Relation){
   R = Create_Relation(Relation->num_of_tuples);
 
   Sort_Relation(Relation, R, 8);
-  printf("AFTER SORT REL\n");
   Delete_Relation(R);
   Print_Relation(Relation);
 }
