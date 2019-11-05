@@ -22,8 +22,8 @@ int main(int argc,char** argv){
 
 
 ////////////////////////////////////
-  Sort(Relation_1);
-//  Sort(Relation_2);
+//  Sort(Relation_1);
+  Sort(Relation_2);
 ////////////////////////////////////
 
   Delete_ArgManager(Manager);

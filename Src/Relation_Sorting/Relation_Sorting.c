@@ -60,7 +60,7 @@ static void Sort_Relation(RelationPtr Relation, RelationPtr R, int byte) {
 
   Copy_Relation(Relation, R, Psum, byte);
   memcpy(Relation->tuples, R->tuples, R->num_of_tuples * sizeof(struct Tuple));
-  Print_Relation(Relation);
+//  Print_Relation(Relation);
 
   for(int bucket = 0; bucket < PSUM_SIZE; bucket++){
     if(Get_psum_Array(Psum)[bucket]==-1)
