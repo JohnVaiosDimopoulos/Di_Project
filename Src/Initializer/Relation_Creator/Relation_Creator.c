@@ -90,7 +90,7 @@ Tuple_Ptr Get_Tuples(RelationPtr Relation){
 
 
 void Delete_Relation(RelationPtr Relation){
-  Free_Array(Relation->tuples);
+  free(Relation->tuples);
   free(Relation);
 }
 

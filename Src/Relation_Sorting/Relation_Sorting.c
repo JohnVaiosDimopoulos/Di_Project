@@ -1,7 +1,5 @@
 #include "string.h"
 #include "Relation_Sorting.h"
-#include "../Initializer/Relation_Creator/Relation_Creator.h"
-#include "../Histogram/Histogram.h"
 #include "../Prefix_sum/Prefix_Sum.h"
 #include <stdlib.h>
 
@@ -28,7 +26,7 @@ static int* Get_index_map(Psum_Ptr Psum){
 void Copy_Relation(RelationPtr Source_rel,RelationPtr Dest_rel,Psum_Ptr Psum,const int byte_to_check) {
 
   int* index_map = Get_index_map(Psum);
-  
+
   for(int i = 0; i < Source_rel->num_of_tuples; i++) {
     uint8_t byte = Find_Byte_Value(Source_rel->tuples[i].element, byte_to_check);
     int index = index_map[byte];
@@ -40,10 +38,10 @@ void Copy_Relation(RelationPtr Source_rel,RelationPtr Dest_rel,Psum_Ptr Psum,con
 }
 
 static void Sort_Relation(RelationPtr Relation, RelationPtr R, int byte) {
-  printf("SORT WITH BYTE %d\n", byte);
+//  printf("\n\n\nSORT BY %d\n", byte);
 
-  if(byte < 1) {
-	  return;
+  if(byte < 1 ) {
+    return;
   }
 
 //  if(REL < 64K) {
@@ -54,23 +52,21 @@ static void Sort_Relation(RelationPtr Relation, RelationPtr R, int byte) {
 
 
   Histogram_Ptr Histogram = Get_Histogram(Relation, byte);
-  Print_Histogram(Histogram);
   Psum_Ptr Psum = Get_Psum(Histogram);
-  Print_Psum(Psum);
+//  Print_Histogram(Histogram);
+//  Print_Psum(Psum);
 
-  Copy_Relation(Relation, R, Psum, byte);
-  memcpy(Relation->tuples, R->tuples, R->num_of_tuples * sizeof(struct Tuple));
 //  Print_Relation(Relation);
+  Copy_Relation(Relation, R, Psum, byte);
+  memcpy(Relation->tuples, R->tuples, Relation->num_of_tuples * sizeof(struct Tuple));
 
   for(int bucket = 0; bucket < PSUM_SIZE; bucket++){
     if(Get_psum_Array(Psum)[bucket]==-1)
       continue;
 
     RelationPtr New_Relation = Create_Relation_with_given_array(
-    Get_Histogram_Array(Histogram)[bucket], &(Relation->tuples[Get_psum_Array(Psum)[bucket]]));
-//    Print_Relation(New_Relation);
+        Get_Histogram_Array(Histogram)[bucket], &(Relation->tuples[Get_psum_Array(Psum)[bucket]]));
     Sort_Relation(New_Relation, R, byte - 1);
-//    Print_Relation(New_Relation);
     New_Relation->tuples = NULL;
     Delete_Relation(New_Relation);
   }
@@ -85,26 +81,7 @@ void Sort(RelationPtr Relation){
   R = Create_Relation(Relation->num_of_tuples);
 
   Sort_Relation(Relation, R, 8);
+//  Print_Relation(Relation);
   Delete_Relation(R);
-  Print_Relation(Relation);
 }
-
-//AFHNW TA COMMENTS SOU EDW
-
-//  * Histogram_Prt Histogram = Get_Histogram(Relation,byte);
-// Psum_Ptr Psum = Get_Psum(Histogram);
-// Sort R based on given byte to R'
-// memcpy(R->array,R'->array,array_size)
-//
-//
-// (for each bucket)
-// for(int i =0;i<Psum->num_of_elements;i++){
-// New_Relation = Create_Relation_with_given_array(
-// (size)Histogram->Array[i].quantity,(bicket_start)Relation->Array[Psum->Array[i].sum]);
-// Sort_Relation(New_Relation,Relation',byte-1);
-// New_Relation->Array=NULL;
-// Delete(New_Relation);
-// }
-// Delete(Psum);
-// Delete(Histogram);
 
