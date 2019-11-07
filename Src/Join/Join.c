@@ -10,6 +10,7 @@ struct List_node{
 };
 
 struct Result_List{
+  long num_of_nodes;
   Node_Ptr start;
   Node_Ptr last;
 };
@@ -38,6 +39,7 @@ static List_Ptr Create_and_Initialize_List() {
   List_Ptr List = (List_Ptr)malloc(sizeof(struct Result_List));
   List->start = New_Node();
   List->last = List->start;
+  List->num_of_nodes=0;
   return List;
 }
 
@@ -48,7 +50,9 @@ void Insert_Record(List_Ptr List, uint64_t id_1, uint64_t id_2) {
 //	  Pnode = Pnode->next;
 
   if(Pnode->counter == LIST_SIZE) {
+    printf("NUM OF NODES: %lu\n",List->num_of_nodes);
     Pnode->next = New_Node();
+    List->num_of_nodes++;
     Pnode = Pnode->next;
   }
   List->last = Pnode;
