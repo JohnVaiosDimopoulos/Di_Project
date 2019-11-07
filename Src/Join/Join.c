@@ -11,6 +11,7 @@ struct List_node{
 
 struct Result_List{
   Node_Ptr start;
+  Node_Ptr last;
 };
 
 void Print_List(Node_Ptr Pnode, int j, FILE *fp){
