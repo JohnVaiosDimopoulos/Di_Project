@@ -1,6 +1,7 @@
 #include "string.h"
 #include "Relation_Sorting.h"
 #include "../Prefix_sum/Prefix_Sum.h"
+#include "../Util/Quick_sort.h"
 #include <stdlib.h>
 
 
@@ -37,54 +38,10 @@ void Copy_Relation(RelationPtr Source_rel,RelationPtr Dest_rel,Psum_Ptr Psum,con
   free(index_map);
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-void swap(uint64_t* a, uint64_t* b) { 
-	uint64_t t = *a; 
-	*a = *b; 
-	*b = t; 
-} 
-  
-int partition (RelationPtr A, int low, int high) { 
-	uint64_t pivot = A->tuples[high].element;    // pivot 
-	int i = (low - 1);  // Index of smaller element 
-	
-	for (int j = low; j <= high- 1; j++) { 
-		// If current element is smaller than the pivot 
-		if (A->tuples[j].element < pivot) { 
-			i++;    // increment index of smaller element 
-			swap(&A->tuples[j].element , &A->tuples[i].element); 
-			swap(&A->tuples[j].row_id , &A->tuples[i].row_id); 
-		}
-	} 
-	swap(&A->tuples[high].element , &A->tuples[i + 1].element); 
-	swap(&A->tuples[high].row_id , &A->tuples[i + 1].row_id); 
-	return (i + 1); 
-} 
-  
-void quickSort(RelationPtr A, int low, int high) { 
-	if (low < high) { 
-		/* pi is partitioning index, arr[p] is now 
-		   at right place */
-		int pi = partition(A, low, high); 
-		
-		// Separately sort elements before 
-		// partition and after partition 
-		quickSort(A, low, pi - 1); 
-		quickSort(A, pi + 1, high); 
-	} 
-} 
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
 static void Sort_Relation(RelationPtr Relation, RelationPtr R, int byte) {
-//  printf("\n\n\nSORT BY %d\n", byte);
 
   if(byte < 1 ) {
     return;
@@ -92,19 +49,13 @@ static void Sort_Relation(RelationPtr Relation, RelationPtr R, int byte) {
 
   uint64_t size = sizeof(*(Relation->tuples)) * Relation->num_of_tuples;
   if(size < 64000) {
-//      printf("SMALL ENOUGH: %llu\n\n", size);
       quickSort(Relation, 0, Relation->num_of_tuples - 1);
 	  return;
   }
 
-//  printf("\t\t\t\tPASS: %llu\n\n", size);
 
   Histogram_Ptr Histogram = Get_Histogram(Relation, byte);
   Psum_Ptr Psum = Get_Psum(Histogram);
-//  Print_Histogram(Histogram);
-//  Print_Psum(Psum);
-
-//  Print_Relation(Relation);
   Copy_Relation(Relation, R, Psum, byte);
   memcpy(Relation->tuples, R->tuples, Relation->num_of_tuples * sizeof(struct Tuple));
 
@@ -129,7 +80,6 @@ void Sort(RelationPtr Relation){
   R = Create_Relation(Relation->num_of_tuples);
 
   Sort_Relation(Relation, R, 8);
-  //Print_Relation(Relation);
   Delete_Relation(R);
 }
 
