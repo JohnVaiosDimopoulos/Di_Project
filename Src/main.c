@@ -13,8 +13,8 @@ int main(int argc,char** argv){
   Sort(Relation_1);
   Sort(Relation_2);
 
-  Print_Relation(Relation_1);
-  Print_Relation(Relation_2);
+//  Print_Relation(Relation_1);
+//  Print_Relation(Relation_2);
 
   //join
   Join(Relation_1, Relation_2);

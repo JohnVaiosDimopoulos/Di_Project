@@ -50,7 +50,7 @@ void Insert_Record(List_Ptr List, uint64_t id_1, uint64_t id_2) {
 //	  Pnode = Pnode->next;
 
   if(Pnode->counter == LIST_SIZE) {
-    printf("NUM OF NODES: %lu\n",List->num_of_nodes);
+//    printf("NUM OF NODES: %lu\n",List->num_of_nodes);
     Pnode->next = New_Node();
     List->num_of_nodes++;
     Pnode = Pnode->next;
@@ -122,7 +122,7 @@ void Join(RelationPtr A, RelationPtr B) {
       }
     }
   }
-  printf("JOIN\n\n");
+  printf("JOIN ENDED\n\n");
   FILE *fp = fopen("./Results/output", "w");
   Print_List(List->start, 0, fp);
   fclose(fp);
