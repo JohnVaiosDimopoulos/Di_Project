@@ -59,6 +59,13 @@ void Insert_Record(List_Ptr List, uint64_t id_1, uint64_t id_2) {
 }
 
 void Delete_List(List_Ptr List){
+  Node_Ptr Pnode = List->start;
+  Node_Ptr temp = Pnode;
+  while(Pnode) {
+	  temp = temp->next;
+	  free(Pnode);
+	  Pnode = temp;
+  }
   free(List);
 }
 
@@ -114,6 +121,7 @@ void Join(RelationPtr A, RelationPtr B) {
   FILE *fp = fopen("../../../Desktop/output.txt", "w");
   Print_List(List->start, 0, fp);
   fclose(fp);
+  Delete_List(List);
 
 //  Node_Ptr Pnode = List->start;
 //  printf("Array = %lu\n", sizeof(uint64_t) * LIST_SIZE * 2);
