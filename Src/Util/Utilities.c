@@ -17,6 +17,14 @@ int Open_File_for_Read(FILE** File_Ptr,const char* File_Name){
   exit(-1);
 }
 
+int Open_File_for_Write(FILE** File_Ptr,const char* File_Name){
+  if(((*File_Ptr)=fopen(File_Name,"w"))!=NULL)
+    return 1;
+  printf("Error at file opening\n");
+  perror("Error");
+  exit(-1);
+}
+
 Tuple_Ptr Allocate_Array(int Array_elements){
 
   if(Array_elements==0)

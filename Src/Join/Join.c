@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "Join.h"
 #include "../Initializer/Relation_Creator/Relation_Creator.h"
+#include "../Util/Utilities.h"
 
 struct List_node{
   uint64_t Array[LIST_SIZE][2];
@@ -103,7 +104,9 @@ void Join(RelationPtr A, RelationPtr B) {
       }
     }
   }
-  FILE *fp = fopen("../../../Desktop/output.txt", "w");
+
+  FILE *fp;
+  Open_File_for_Write(&fp,"./Results/output");
   Print_List(List->start, 0, fp);
   fclose(fp);
 

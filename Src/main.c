@@ -2,6 +2,7 @@
 #include "Initializer/Relation_Creator/Relation_Creator.h"
 #include "Initializer/Relations_Initializer.h"
 #include "Relation_Sorting/Relation_Sorting.h"
+#include "Join/Join.h"
 
 int main(int argc,char** argv){
   RelationPtr Relation_1,Relation_2;
@@ -12,8 +13,8 @@ int main(int argc,char** argv){
   Sort(Relation_1);
   Sort(Relation_2);
 
-//  Print_Relation(Relation_1);
-//  Print_Relation(Relation_2);
+  Print_Relation(Relation_1);
+  Print_Relation(Relation_2);
 
   //join
   Join(Relation_1, Relation_2);
