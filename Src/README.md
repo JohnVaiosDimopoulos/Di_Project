@@ -12,8 +12,11 @@
  ## Εκτέλεση μεσω CLion
  1. Ανοιξτε το Clion
  2. Επιλέξτε Checkout from Version Controll -> Git
+ ![Step_1](https://github.com/SuperGohan362/Di_Project/blob/master/Src/Images_for_README/Step1.png)
  3. Επιλέξτε το url του repository και τον φάκελο που θα αποθηκευθέι το project και πατήστε clone
+  ![Step_2](https://github.com/SuperGohan362/Di_Project/blob/master/Src/Images_for_README/step2.png)
  4. Μολις γινει clone το project πάνω αριστερά επιλέξτε είτε το Sort_join για να τρέξει το βασικό πρόγραμμα είτε το Tests για να τρέξετε τα Test του κώδικα
+  ![Step_3](https://github.com/SuperGohan362/Di_Project/blob/master/Src/Images_for_README/Step3.png)
  
  ***Δεν είναι απαρέτητο να έχετε εγκατεστημένο το google test framework για τον παραπάνω τρόπο***
  
