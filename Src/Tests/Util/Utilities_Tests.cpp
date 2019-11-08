@@ -10,6 +10,7 @@ class Utilities_Tests : public ::testing::Test {
   //the root is in Src/Util
   const char* filename_relative = "./Test_Files/test_file";
   const char* filename_wrong = "./test_file";
+  const char* filename_empty = "./Test_Files/empty";
   //this path depends on the machine you are in
   const char* filename_full_path =
       "/home/supergohan/Desktop/Di/7_th Semester/Di_Project/Src/Tests/Test_Files/test_file";
@@ -42,6 +43,11 @@ TEST_F(Utilities_Tests, Open_File_for_Read_Full){
 TEST_F(Utilities_Tests,Open_File_for_Read_Wrong){
   FILE* File_Ptr;
   ASSERT_EXIT(Open_File_for_Read(&File_Ptr,filename_wrong),::testing::ExitedWithCode(255),"");
+}
+
+TEST_F(Utilities_Tests,Open_empty){
+  FILE* File_Ptr;
+  ASSERT_EXIT(Open_File_for_Read(&File_Ptr,filename_empty),::testing::ExitedWithCode(255),"");
 }
 
 TEST_F(Utilities_Tests, Allocate_Array){

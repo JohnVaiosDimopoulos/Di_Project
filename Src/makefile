@@ -26,7 +26,7 @@ Histogram/Histogram.o: Histogram/Histogram.c Histogram/Histogram.h Initializer/R
 Util/Utilities.o: Util/Utilities.c Util/Utilities.h
 	$(CC) -c Util/Utilities.c
 
-Util/Quick_sort.o: Util/Quick_sort.c Util/Quick_sort.h
+Util/Quick_sort.o: Relation_Sorting/Quick_sort.c Relation_Sorting/Quick_sort.h
 	$(CC) -c Util/Quick_sort.c
 
 

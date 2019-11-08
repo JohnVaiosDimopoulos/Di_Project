@@ -1,8 +1,40 @@
-#include "string.h"
+#include <stdlib.h>
+#include <string.h>
 #include "Relation_Sorting.h"
 #include "../Prefix_sum/Prefix_Sum.h"
-#include "../Util/Quick_sort.h"
-#include <stdlib.h>
+#include "../Util/Utilities.h"
+
+static int partition (RelationPtr A, int low, int high) {
+  uint64_t pivot = A->tuples[high].element;    // pivot
+  int i = (low - 1);  // Index of smaller element
+
+  for (int j = low; j <= high- 1; j++) {
+
+    // If current element is smaller than the pivot
+    if (A->tuples[j].element < pivot) {
+      i++;    // increment index of smaller element
+      generic_swap(&A->tuples[j].element , &A->tuples[i].element, sizeof(uint64_t));
+      generic_swap(&A->tuples[j].row_id , &A->tuples[i].row_id,sizeof(uint64_t));
+    }
+  }
+  generic_swap(&A->tuples[high].element , &A->tuples[i + 1].element,sizeof(uint64_t));
+  generic_swap(&A->tuples[high].row_id , &A->tuples[i + 1].row_id,sizeof(uint64_t));
+  return (i + 1);
+}
+
+
+static void quickSort(RelationPtr A, int low, int high) {
+  if (low < high) {
+    /* pi is partitioning index, arr[p] is now
+       at right place */
+    int pi = partition(A, low, high);
+
+    // Separately sort elements before
+    // partition and after partition
+    quickSort(A, low, pi - 1);
+    quickSort(A, pi + 1, high);
+  }
+}
 
 
 static uint8_t Find_Byte_Value(uint64_t value, int byte_to_check) {
@@ -37,8 +69,6 @@ void Copy_Relation(RelationPtr Source_rel,RelationPtr Dest_rel,Psum_Ptr Psum,con
   }
   free(index_map);
 }
-
-
 
 
 static void Sort_Relation(RelationPtr Relation, RelationPtr R, int byte) {

@@ -10,9 +10,21 @@ char* Allocate_and_Copy_Str(const char* source){
   return New_String;
 }
 
+static void Check_if_empty(FILE* File_ptr){
+  fseek(File_ptr,0,SEEK_END);
+  size_t size = ftell(File_ptr);
+  if(0==size){
+    printf("File is empty");
+    exit(-1);
+  }
+  fseek(File_ptr,0,SEEK_SET);
+}
+
 int Open_File_for_Read(FILE** File_Ptr,const char* File_Name){
-  if(((*File_Ptr)=fopen(File_Name,"r"))!=NULL)
+  if(((*File_Ptr)=fopen(File_Name,"r"))!=NULL){
+    Check_if_empty(*File_Ptr);
     return 1;
+  }
   printf("Error at file opening\n");
   exit(-1);
 }

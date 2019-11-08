@@ -9,5 +9,5 @@ class Relation_Initializer_Test : public ::testing::Test {
 
 
 TEST_F(Relation_Initializer_Test,Initialize_Input_empty){
-  ASSERT_EXIT(Initialize_Relation(&Relation,Empty),::testing::ExitedWithCode(255),"");
+  ASSERT_EXIT(Initialize_Relation(&Relation,"./Test_Files/empty"),::testing::ExitedWithCode(255),"");
 }

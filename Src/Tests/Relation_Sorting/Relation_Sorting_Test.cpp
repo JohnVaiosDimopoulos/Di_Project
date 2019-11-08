@@ -7,7 +7,9 @@ class Relation_Sorting_Test : public ::testing::Test {
  public:
   FILE* file;
   const char* filename = "./Test_Files/Test_Table_Big";
+  const char* filenamae_small ="./Test_Files/Test_Table_3";
   RelationPtr Relation;
+  RelationPtr Relation_sm;
   Psum_Ptr Psum;
   Histogram_Ptr Histogram;
  protected:
@@ -60,5 +62,15 @@ TEST_F(Relation_Sorting_Test,Copy_Relation){
     ASSERT_EQ(Buffer_Relation->tuples[j].element,second_value);
 }
 
+TEST_F(Relation_Sorting_Test,Quick_sort){
+  Initialize_Relation(&Relation_sm,filenamae_small);
+  quickSort(Relation_sm,0,Relation_sm->num_of_tuples-1);
 
-
+  ASSERT_EQ(Relation_sm->tuples[0].element,1);
+  ASSERT_EQ(Relation_sm->tuples[1].element,2);
+  ASSERT_EQ(Relation_sm->tuples[2].element,3);
+  ASSERT_EQ(Relation_sm->tuples[3].element,5);
+  ASSERT_EQ(Relation_sm->tuples[4].element,7);
+  ASSERT_EQ(Relation_sm->tuples[5].element,11);
+  ASSERT_EQ(Relation_sm->tuples[6].element,20);
+}
