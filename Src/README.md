@@ -18,7 +18,7 @@
  4. Μολις γινει clone το project πάνω αριστερά επιλέξτε είτε το Sort_join για να τρέξει το βασικό πρόγραμμα είτε το Tests για να τρέξετε τα Test του κώδικα
   ![Step_3](https://github.com/SuperGohan362/Di_Project/blob/master/Src/Images_for_README/Step3.png)
  
- ***Δεν είναι απαρέτητο να έχετε εγκατεστημένο το google test framework για τον παραπάνω τρόπο***
+ ***Δεν είναι απαραίτητο να έχετε εγκατεστημένο το google test framework για τον παραπάνω τρόπο***
  
 # Επιλογή Δομών:
 

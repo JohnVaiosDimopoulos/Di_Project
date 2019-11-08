@@ -1,12 +1,14 @@
 CC = gcc
 CFLAGS  = -g -Wall
 
-main: main.o Initializer/Argument_Manager.o Initializer/Relations_Initializer.o Initializer/Arguments_Data.o Initializer/Relation_Creator/Relation_Creator.o Util/Utilities.o Util/Quick_sort.o Histogram/Histogram.o Prefix_Sum/Prefix_Sum.o Relation_Sorting/Relation_Sorting.o Join/Join.o
-	$(CC) $(CFLAGS) -o main main.o Argument_Manager.o Relations_Initializer.o Arguments_Data.o Relation_Creator.o Utilities.o Histogram.o Prefix_Sum.o Relation_Sorting.o Join.o Quick_sort.o
+main: main.o Initializer/Argument_Manager.o Initializer/Relations_Initializer.o Initializer/Arguments_Data.o Initializer/Relation_Creator/Relation_Creator.o Util/Utilities.o Histogram/Histogram.o Prefix_Sum/Prefix_Sum.o Relation_Sorting/Relation_Sorting.o Join/Join.o Results_List/Results_List.o
+	$(CC) $(CFLAGS) -o main main.o Argument_Manager.o Relations_Initializer.o Arguments_Data.o Relation_Creator.o Utilities.o Histogram.o Prefix_Sum.o Relation_Sorting.o Join.o Results_List.o
 
-main.o: main.c Initializer/Argument_Manager.h Initializer/Arguments_Data.h Initializer/Relations_Initializer.h Initializer/Relation_Creator Util/Utilities.h Histogram/Histogram.h Prefix_sum/Prefix_Sum.h Relation_Sorting/Relation_Sorting.h Join/Join.h
+main.o: main.c Initializer/Argument_Manager.h Initializer/Arguments_Data.h Initializer/Relations_Initializer.h Initializer/Relation_Creator Util/Utilities.h Histogram/Histogram.h Prefix_sum/Prefix_Sum.h Relation_Sorting/Relation_Sorting.h Join/Join.h Results_List/Results_List.h
 	$(CC) -c main.c 
 
+Results_List/Results_List.o: Results_List/Results_List.c Results_List/Results_List.h
+	$(CC) -c Results_List/Results_List.c
 
 Join/Join.o: Join/Join.c Join/Join.h
 	$(CC) -c Join/Join.c
@@ -25,9 +27,6 @@ Histogram/Histogram.o: Histogram/Histogram.c Histogram/Histogram.h Initializer/R
 
 Util/Utilities.o: Util/Utilities.c Util/Utilities.h
 	$(CC) -c Util/Utilities.c
-
-Util/Quick_sort.o: Relation_Sorting/Quick_sort.c Relation_Sorting/Quick_sort.h
-	$(CC) -c Util/Quick_sort.c
 
 
 Initializer/Relation_Creator/Relation_Creator.o: Initializer/Relation_Creator/Relation_Creator.c Initializer/Relation_Creator/Relation_Creator.h
