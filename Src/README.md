@@ -1,5 +1,14 @@
 # Εκτελεση:
 
+## Compilation και Εκτέλεση βασικού κώδικα
+     make
+    ./run.sh
+## Compilation και Εκτέλεση Test
+     cd Tests
+     make
+     ./run.sh
+ ***Θα πρέπει να υπάρχει εγκατεστημένο το google test framework***
+ 
 # Επιλογή Δομών:
 
 ## Tuple:
